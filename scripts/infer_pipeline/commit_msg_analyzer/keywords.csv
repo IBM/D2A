@@ -1,0 +1,31 @@
+Category,Key Word,Weight
+GENERAL,fix/fixes/fixing/fixed,0.4
+,error/errors/err,0.4
+,fail/fails/failed/failing/failure,0.4
+,vulnerable/vulnerability/vulnerabilites,0.4
+,bug/bugs,0.4
+,exception/exceptions,0.4
+MEMORY_LEAK,memory/memories,0.4
+,leak/leaks/leaking/leaked,0.4
+,memory leak,1
+,invalid memory,1
+,unallocated memory,1
+,memory corruption,1
+,memory overrun,1
+,memory exposure,1
+,memory disclosure,1
+,memory overwrite,1
+NULL_DEREFERENCE,null,0.4
+,pointer/pointers,0.4
+,null pointer,1
+,dereference,1
+DEAD_STORE,buffer/buffers,0.4
+,overflow/overflowing/overflowed,0.4
+,buffer overflow/buffer overflows,1
+,heap overflow/heap overflows,1
+,memory overflow/memory overflows,1
+UNINITIALIZED_VALUE,without initialization/without initializations,1
+,typo initialization/typo initializations,1
+,uninitialized,1
+,missing initialization/missing initializations,1
+,undefined,1

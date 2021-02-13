@@ -1,0 +1,3 @@
+#! /bin/sh
+
+echo "powerpc64-unknown-linux-gnu"
