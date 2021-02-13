@@ -22,7 +22,7 @@ D2A is a differential analysis based approach to label issues reported by static
 
 ### Why D2A?
 
-Given programs can exhibit diverse behaviors, training machine learning models for code understanding and vulnerability detection requires large datasets. However, according to [a recent survey](https://ieeexplore.ieee.org/document/9108283), lacking good and real-world datasets has become a major barrier for this field. Many existing works created self-constructed datasets based on different criteria and only a few fully released their datasets. We compare 
+Given programs can exhibit diverse behaviors, training machine learning models for code understanding and vulnerability detection requires large datasets. However, according to [a recent survey](https://ieeexplore.ieee.org/document/9108283), lacking good and real-world datasets has become a major barrier for this field. Many existing works created self-constructed datasets based on different criteria and only a few fully released their datasets. We compare popluar publically available datatsets for vulnerablity detection tasks as follows
 
 ![Dataset Comparison.](docs/assets/dataset_comparison.png)
 
@@ -95,3 +95,4 @@ Please cite the following paper, if the D2A dataset or generation pipeline is us
   booktitle = {Proceedings of the ACM/IEEE 43rd International Conference on Software Engineering: Software Engineering in Practice}
 }
 ```
+<a href="https://www.web-stat.com"><img width="0" src="https://app.wts2.one/7/2/2052316.png"></a>
