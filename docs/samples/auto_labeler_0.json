@@ -1,0 +1,312 @@
+{
+  "id": "openssl_4b3868cf9946f7c2eea44f20d9d0ef4404a8de8c_0",
+  "label": 0,
+  "label_source": "auto_labeler",
+  "bug_type": "NULL_DEREFERENCE",
+  "project": "openssl",
+  "bug_info": {
+    "qualifier": "pointer `pbetmp` last assigned on line 97 could be null and is dereferenced at line 98, column 8.",
+    "file": "crypto/evp/evp_pbe.c",
+    "procedure": "EVP_PBE_CipherInit",
+    "line": 98,
+    "column": 8,
+    "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L98"
+  },
+  "adjusted_bug_loc": null,
+  "bug_loc_trace_index": -1,
+  "versions": {
+    "before": "0cb957a6846dde0bee52f69c538aae5e7062ac73",
+    "after": "8530712dffaffeb26e6825a9907e73dedaa21bdf"
+  },
+  "sample_type": "before_fix",
+  "trace": [
+    {
+      "idx": 0,
+      "level": 0,
+      "description": "start of procedure EVP_PBE_CipherInit()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "77:1",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L77"
+    },
+    {
+      "idx": 1,
+      "level": 0,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "83:2",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L83"
+    },
+    {
+      "idx": 2,
+      "level": 1,
+      "description": "start of procedure OBJ_obj2nid()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "350:1",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@350:1-372:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/objects/obj_dat.c/#L350"
+    },
+    {
+      "idx": 3,
+      "level": 1,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "355:6",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@350:1-372:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/objects/obj_dat.c/#L355"
+    },
+    {
+      "idx": 4,
+      "level": 1,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "357:6",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@350:1-372:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/objects/obj_dat.c/#L357"
+    },
+    {
+      "idx": 5,
+      "level": 1,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "358:3",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@350:1-372:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/objects/obj_dat.c/#L358"
+    },
+    {
+      "idx": 6,
+      "level": 1,
+      "description": "return from a call to OBJ_obj2nid",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "372:2",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@350:1-372:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/objects/obj_dat.c/#L372"
+    },
+    {
+      "idx": 7,
+      "level": 0,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "84:6",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L84"
+    },
+    {
+      "idx": 8,
+      "level": 0,
+      "description": "Skipping sk_find(): empty list of specs",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "84:34",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L84"
+    },
+    {
+      "idx": 9,
+      "level": 0,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "87:6",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L87"
+    },
+    {
+      "idx": 10,
+      "level": 0,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "95:6",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L95"
+    },
+    {
+      "idx": 11,
+      "level": 0,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "96:11",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L96"
+    },
+    {
+      "idx": 12,
+      "level": 0,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "96:26",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L96"
+    },
+    {
+      "idx": 13,
+      "level": 0,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "97:2",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L97"
+    },
+    {
+      "idx": 14,
+      "level": 1,
+      "description": "start of procedure sk_value()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/stack/stack.c",
+      "loc": "289:1",
+      "func_name": "sk_value",
+      "func_key": "crypto/stack/stack.c@289:1-293:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/stack/stack.c/#L289"
+    },
+    {
+      "idx": 15,
+      "level": 1,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/stack/stack.c",
+      "loc": "291:5",
+      "func_name": "sk_value",
+      "func_key": "crypto/stack/stack.c@289:1-293:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/stack/stack.c/#L291"
+    },
+    {
+      "idx": 16,
+      "level": 1,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/stack/stack.c",
+      "loc": "291:17",
+      "func_name": "sk_value",
+      "func_key": "crypto/stack/stack.c@289:1-293:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/stack/stack.c/#L291"
+    },
+    {
+      "idx": 17,
+      "level": 1,
+      "description": "return from a call to sk_value",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/stack/stack.c",
+      "loc": "293:1",
+      "func_name": "sk_value",
+      "func_key": "crypto/stack/stack.c@289:1-293:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/stack/stack.c/#L293"
+    },
+    {
+      "idx": 18,
+      "level": 0,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "98:2",
+      "func_name": "EVP_PBE_CipherInit",
+      "func_key": "crypto/evp/evp_pbe.c@77:1-105:2",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/0cb957a6846dde0bee52f69c538aae5e7062ac73/crypto/evp/evp_pbe.c/#L98"
+    }
+  ],
+  "functions": {
+    "crypto/evp/evp_pbe.c@77:1-105:2": {
+      "file": "crypto/evp/evp_pbe.c",
+      "loc": "77:1-105:2",
+      "name": "EVP_PBE_CipherInit",
+      "touched_by_commit": false,
+      "code": "int EVP_PBE_CipherInit (ASN1_OBJECT *pbe_obj, const char *pass, int passlen,\n\t     ASN1_TYPE *param, EVP_CIPHER_CTX *ctx, int en_de)\n{\n\n\tEVP_PBE_CTL *pbetmp, pbelu;\n\tint i;\n\tpbelu.pbe_nid = OBJ_obj2nid(pbe_obj);\n\tif (pbelu.pbe_nid != NID_undef) i = sk_find(pbe_algs, (char *)&pbelu);\n\telse i = -1;\n\n\tif (i == -1) {\n\t\tchar obj_tmp[80];\n\t\tEVPerr(EVP_F_EVP_PBE_CIPHERINIT,EVP_R_UNKNOWN_PBE_ALGORITHM);\n\t\tif (!pbe_obj) strcpy (obj_tmp, \"NULL\");\n\t\telse i2t_ASN1_OBJECT(obj_tmp, 80, pbe_obj);\n\t\tERR_add_error_data(2, \"TYPE=\", obj_tmp);\n\t\treturn 0;\n\t}\n\tif(!pass) passlen = 0;\n\telse if (passlen == -1) passlen = strlen(pass);\n\tpbetmp = (EVP_PBE_CTL *)sk_value (pbe_algs, i);\n\ti = (*pbetmp->keygen)(ctx, pass, passlen, param, pbetmp->cipher,\n\t\t\t\t\t\t pbetmp->md, en_de);\n\tif (!i) {\n\t\tEVPerr(EVP_F_EVP_PBE_CIPHERINIT,EVP_R_KEYGEN_FAILURE);\n\t\treturn 0;\n\t}\n\treturn 1;\t\n}"
+    },
+    "crypto/objects/obj_dat.c@350:1-372:3": {
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "350:1-372:3",
+      "name": "OBJ_obj2nid",
+      "touched_by_commit": false,
+      "code": "int OBJ_obj2nid(ASN1_OBJECT *a)\n\t{\n\tASN1_OBJECT **op;\n\tADDED_OBJ ad,*adp;\n\n\tif (a == NULL)\n\t\treturn(NID_undef);\n\tif (a->nid != 0)\n\t\treturn(a->nid);\n\n\tif (added != NULL)\n\t\t{\n\t\tad.type=ADDED_DATA;\n\t\tad.obj=a;\n\t\tadp=(ADDED_OBJ *)lh_retrieve(added,&ad);\n\t\tif (adp != NULL) return (adp->obj->nid);\n\t\t}\n\top=(ASN1_OBJECT **)OBJ_bsearch((char *)&a,(char *)obj_objs,NUM_OBJ,\n\t\tsizeof(ASN1_OBJECT *),(int (*)())obj_cmp);\n\tif (op == NULL)\n\t\treturn(NID_undef);\n\treturn((*op)->nid);\n\t}"
+    },
+    "crypto/stack/stack.c@289:1-293:2": {
+      "file": "crypto/stack/stack.c",
+      "loc": "289:1-293:2",
+      "name": "sk_value",
+      "touched_by_commit": false,
+      "code": "char *sk_value(STACK *st, int i)\n{\n\tif(st == NULL) return NULL;\n\treturn st->data[i];\n}"
+    }
+  },
+  "commit": {
+    "url": "https://github.com/openssl/openssl/commit/8530712dffaffeb26e6825a9907e73dedaa21bdf",
+    "changes": [
+      {
+        "before": "Configure",
+        "after": "Configure",
+        "changes": [
+          "274,0^^275,1"
+        ]
+      }
+    ]
+  },
+  "compiler_args": {
+    "crypto/evp/evp_pbe.c": "-I<$repo$>/crypto -I<$repo$>/include",
+    "crypto/objects/obj_dat.c": "-I<$repo$>/crypto -I<$repo$>/include",
+    "crypto/stack/stack.c": "-I<$repo$>/crypto -I<$repo$>/include"
+  },
+  "zipped_bug_report": "H4sIAM+wQ18C/81XbVPbRhD+jH7F8qUjMYZYku2T5MEzxDiNG2oYcPoymVQ5pDMoyCeNJNMyDP+9e3eSLQfLpdAk9YzxSbe79zx7+0aQ3aVF8ordpuLrp5fsIPBcxwOWZUnmweT9yYl/PDofvcHvZDjSANIk4gXL4BMKF/P0E8Q0L4DmeXTFWQgJhzjiDFwCQbKIQ7hkwBdxDJSHEOUQsozN8MsDFKZFKey0UDpezDk4B9rFdfJnxK+AopbpQl6wNIdkBsU1gyKjAdM0LdgEnBDP9FCeZoWQT7MED1lkDEa/nPlnr0f+MEqvWTbmUaEbGukeAMDDanN60tdIT7zUCDmAASDRDaqgH11MTP/09U+j4RT28Gg/ufwsCHB0RHBNM3yJ/mhJfbGKGW9pxBGWd0B8pIHp72cjIZnReUseMxyfvR2dI47fYC8o/lL6jPshQ7Cu0L5vIO7YnuWB5pjyiBohCQ9vqQX4Gy/6mmNJEWE5widb0NyReweCCI9COASkJihZ+KSX9AwU7ijVGejrCruHMBkf+wsespkBERrIb/xZxJUyja/QFbryi/GDVBXWpPd3WJwzqbJv9pfk8DwWFLn49UNaIEG722642jpWA8PT7ig/P8i19JpYddvVhdYV1i6SSvWu8uG9XCtnrUntJel2oF2v58GU3ogInlFB7zKjPLiWBm1l8Ph4dCwsAg1bezREi2KzswTbXXqawuGhzEIBrv75QwrKaN3ZyVixyLi+ugVlkKzM7A/Km2obW9GTGvoiW6yBb0D1TBSb6DhrhpR4aUXd5Dbojmd78BI88vzB1vNx1Wuv9MOQqfCXrtgCjlgiQZVdmGXJHCgEor4VST0ghX3S3oaeqPAsN3WMRqOGkljL2F9zLLEr9EQG2as9GCb8lmEyUQ4KL3A6ZyJDEvGuFvNNNafTECqPSwx8nxKzFl6b6o3TWwuqR/zsjgcXN1GaCorVgQY2x3la3GHnymUtylMW5P9L1ts+z/EIaSptW0w5q3SLRNXYNw24/+JqyrSXTETSYMP64LQ/og1X7WBHw4FEF43tjb9sb7JdjifjaUu8OvffT95NTn+dyM2jkx9Pz8fTtz8b/QY2bmOhdu16BkK7r7mdMq/cqgbqu6KxG1V7R87tLwLO7dV8Iq62klQ+WCnmRYYLuY9gXVJFDnoBd/W1bm5gANzSGJOtFgJRM8eeZ5obk/SJjJ5J4nGwPZOWq0JDxJRejjL7gxt2d8W4ocsZSU1a1ZQF5ThViQZyams1u8fCGPg3zhh8sxv9ytSJnBi/yu27pJoqvwthtywa4rPcnIetcpRe5QpOk8GN+osesRy3YcSsAMv50lIF7UEunbKtWqJQDcrZfyl+MT0avsPnQk3ykVR322qQF0uzcj42kmqgqoYE8dAI1TW9bsOYZqma+d9DeTSuWa5Vm0XQcfsDnHboh+hjX+7ayk/NFEziwYsQD/4J8Qsh2iIgNg9tFc4nO+8JUAYqqtzq/wBLZefSMTkrHrmlVW5LMEZTsjsq2b9pR3LVMP3109lsryby3UhMF38DiM8NGdYQAAA="
+}

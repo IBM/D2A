@@ -1,0 +1,1495 @@
+{
+  "id": "openssl_78ad164cf891c8081d89d03a0c062090d0f10551_1",
+  "label": 1,
+  "label_source": "auto_labeler",
+  "bug_type": "NULL_DEREFERENCE",
+  "project": "openssl",
+  "bug_info": {
+    "qualifier": "pointer `pktmp` last assigned on line 196 could be null and is dereferenced by call to `EVP_PKEY_copy_parameters()` at line 197, column 3.",
+    "file": "ssl/ssl_rsa.c",
+    "procedure": "ssl_set_pkey",
+    "line": 197,
+    "column": 3,
+    "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/ssl/ssl_rsa.c/#L197"
+  },
+  "adjusted_bug_loc": null,
+  "bug_loc_trace_index": -1,
+  "versions": {
+    "before": "1a5a1a93f6c48b135a2b384f7e571abb7b90fc55",
+    "after": "448be743350791d32764fac38f5d3c8ffda481b2"
+  },
+  "sample_type": "before_fix",
+  "trace": [
+    {
+      "idx": 0,
+      "level": 0,
+      "description": "start of procedure ssl_set_pkey()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "ssl/ssl_rsa.c",
+      "loc": "182:1",
+      "func_name": "ssl_set_pkey",
+      "func_key": "ssl/ssl_rsa.c@182:1-225:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/ssl/ssl_rsa.c/#L182"
+    },
+    {
+      "idx": 1,
+      "level": 0,
+      "description": "Skipping ssl_cert_type(): empty list of specs",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "ssl/ssl_rsa.c",
+      "loc": "186:2",
+      "func_name": "ssl_set_pkey",
+      "func_key": "ssl/ssl_rsa.c@182:1-225:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/ssl/ssl_rsa.c/#L186"
+    },
+    {
+      "idx": 2,
+      "level": 0,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "ssl/ssl_rsa.c",
+      "loc": "187:6",
+      "func_name": "ssl_set_pkey",
+      "func_key": "ssl/ssl_rsa.c@182:1-225:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/ssl/ssl_rsa.c/#L187"
+    },
+    {
+      "idx": 3,
+      "level": 0,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "ssl/ssl_rsa.c",
+      "loc": "193:6",
+      "func_name": "ssl_set_pkey",
+      "func_key": "ssl/ssl_rsa.c@182:1-225:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/ssl/ssl_rsa.c/#L193"
+    },
+    {
+      "idx": 4,
+      "level": 0,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "ssl/ssl_rsa.c",
+      "loc": "196:3",
+      "func_name": "ssl_set_pkey",
+      "func_key": "ssl/ssl_rsa.c@182:1-225:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/ssl/ssl_rsa.c/#L196"
+    },
+    {
+      "idx": 5,
+      "level": 1,
+      "description": "start of procedure X509_get_pubkey()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/x509/x509_cmp.c",
+      "loc": "374:1",
+      "func_name": "X509_get_pubkey",
+      "func_key": "crypto/x509/x509_cmp.c@374:1-379:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/x509/x509_cmp.c/#L374"
+    },
+    {
+      "idx": 6,
+      "level": 1,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/x509/x509_cmp.c",
+      "loc": "376:7",
+      "func_name": "X509_get_pubkey",
+      "func_key": "crypto/x509/x509_cmp.c@374:1-379:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/x509/x509_cmp.c/#L376"
+    },
+    {
+      "idx": 7,
+      "level": 1,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/x509/x509_cmp.c",
+      "loc": "376:22",
+      "func_name": "X509_get_pubkey",
+      "func_key": "crypto/x509/x509_cmp.c@374:1-379:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/x509/x509_cmp.c/#L376"
+    },
+    {
+      "idx": 8,
+      "level": 1,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/x509/x509_cmp.c",
+      "loc": "378:2",
+      "func_name": "X509_get_pubkey",
+      "func_key": "crypto/x509/x509_cmp.c@374:1-379:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/x509/x509_cmp.c/#L378"
+    },
+    {
+      "idx": 9,
+      "level": 2,
+      "description": "start of procedure X509_PUBKEY_get()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "259:1",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L259"
+    },
+    {
+      "idx": 10,
+      "level": 2,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "261:2",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L261"
+    },
+    {
+      "idx": 11,
+      "level": 2,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "270:6",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L270"
+    },
+    {
+      "idx": 12,
+      "level": 2,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "272:6",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L272"
+    },
+    {
+      "idx": 13,
+      "level": 2,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "278:6",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L278"
+    },
+    {
+      "idx": 14,
+      "level": 2,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "280:2",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L280"
+    },
+    {
+      "idx": 15,
+      "level": 3,
+      "description": "start of procedure OBJ_obj2nid()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "369:1",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L369"
+    },
+    {
+      "idx": 16,
+      "level": 3,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "374:6",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L374"
+    },
+    {
+      "idx": 17,
+      "level": 3,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "376:6",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L376"
+    },
+    {
+      "idx": 18,
+      "level": 3,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "379:6",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L379"
+    },
+    {
+      "idx": 19,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "381:3",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L381"
+    },
+    {
+      "idx": 20,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "382:3",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L382"
+    },
+    {
+      "idx": 21,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "383:3",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L383"
+    },
+    {
+      "idx": 22,
+      "level": 4,
+      "description": "start of procedure lh_retrieve()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "248:1",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L248"
+    },
+    {
+      "idx": 23,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "254:2",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L254"
+    },
+    {
+      "idx": 24,
+      "level": 4,
+      "description": "Skipping getrn(): empty list of specs",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "255:2",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L255"
+    },
+    {
+      "idx": 25,
+      "level": 4,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "257:6",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L257"
+    },
+    {
+      "idx": 26,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "264:3",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L264"
+    },
+    {
+      "idx": 27,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "265:3",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L265"
+    },
+    {
+      "idx": 28,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "267:2",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L267"
+    },
+    {
+      "idx": 29,
+      "level": 4,
+      "description": "return from a call to lh_retrieve",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/lhash/lhash.c",
+      "loc": "268:2",
+      "func_name": "lh_retrieve",
+      "func_key": "crypto/lhash/lhash.c@248:1-268:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/lhash/lhash.c/#L268"
+    },
+    {
+      "idx": 30,
+      "level": 3,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "384:7",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L384"
+    },
+    {
+      "idx": 31,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "384:20",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L384"
+    },
+    {
+      "idx": 32,
+      "level": 3,
+      "description": "return from a call to OBJ_obj2nid",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "391:2",
+      "func_name": "OBJ_obj2nid",
+      "func_key": "crypto/objects/obj_dat.c@369:1-391:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/objects/obj_dat.c/#L391"
+    },
+    {
+      "idx": 33,
+      "level": 2,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "281:6",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L281"
+    },
+    {
+      "idx": 34,
+      "level": 3,
+      "description": "start of procedure EVP_PKEY_new()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "313:1",
+      "func_name": "EVP_PKEY_new",
+      "func_key": "crypto/evp/p_lib.c@313:1-329:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L313"
+    },
+    {
+      "idx": 35,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "317:2",
+      "func_name": "EVP_PKEY_new",
+      "func_key": "crypto/evp/p_lib.c@313:1-329:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L317"
+    },
+    {
+      "idx": 36,
+      "level": 4,
+      "description": "start of procedure CRYPTO_malloc()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "291:1",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L291"
+    },
+    {
+      "idx": 37,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "293:2",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L293"
+    },
+    {
+      "idx": 38,
+      "level": 4,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "296:6",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L296"
+    },
+    {
+      "idx": 39,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "298:2",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L298"
+    },
+    {
+      "idx": 40,
+      "level": 4,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "299:6",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L299"
+    },
+    {
+      "idx": 41,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "301:3",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L301"
+    },
+    {
+      "idx": 42,
+      "level": 4,
+      "description": "Skipping __function_pointer__(): unresolved function pointer",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "302:3",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L302"
+    },
+    {
+      "idx": 43,
+      "level": 4,
+      "description": "Skipping __function_pointer__(): unresolved function pointer",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "304:2",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L304"
+    },
+    {
+      "idx": 44,
+      "level": 4,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "308:6",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L308"
+    },
+    {
+      "idx": 45,
+      "level": 4,
+      "description": "Skipping __function_pointer__(): unresolved function pointer",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "309:3",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L309"
+    },
+    {
+      "idx": 46,
+      "level": 4,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "314:12",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L314"
+    },
+    {
+      "idx": 47,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "317:2",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L317"
+    },
+    {
+      "idx": 48,
+      "level": 4,
+      "description": "return from a call to CRYPTO_malloc",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/mem.c",
+      "loc": "318:2",
+      "func_name": "CRYPTO_malloc",
+      "func_key": "crypto/mem.c@291:1-318:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/mem.c/#L318"
+    },
+    {
+      "idx": 49,
+      "level": 3,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "318:6",
+      "func_name": "EVP_PKEY_new",
+      "func_key": "crypto/evp/p_lib.c@313:1-329:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L318"
+    },
+    {
+      "idx": 50,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "320:3",
+      "func_name": "EVP_PKEY_new",
+      "func_key": "crypto/evp/p_lib.c@313:1-329:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L320"
+    },
+    {
+      "idx": 51,
+      "level": 4,
+      "description": "start of procedure ERR_put_error()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "668:1",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L668"
+    },
+    {
+      "idx": 52,
+      "level": 4,
+      "description": "Skipping ERR_get_state(): empty list of specs",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "692:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L692"
+    },
+    {
+      "idx": 53,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "694:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L694"
+    },
+    {
+      "idx": 54,
+      "level": 4,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "695:6",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L695"
+    },
+    {
+      "idx": 55,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "697:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L697"
+    },
+    {
+      "idx": 56,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "698:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L698"
+    },
+    {
+      "idx": 57,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "699:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L699"
+    },
+    {
+      "idx": 58,
+      "level": 4,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "700:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L700"
+    },
+    {
+      "idx": 59,
+      "level": 4,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "701:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L701"
+    },
+    {
+      "idx": 60,
+      "level": 4,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "701:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L701"
+    },
+    {
+      "idx": 61,
+      "level": 4,
+      "description": "Loop condition is false. Leaving loop",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "701:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L701"
+    },
+    {
+      "idx": 62,
+      "level": 4,
+      "description": "return from a call to ERR_put_error",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "702:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L702"
+    },
+    {
+      "idx": 63,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "321:3",
+      "func_name": "EVP_PKEY_new",
+      "func_key": "crypto/evp/p_lib.c@313:1-329:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L321"
+    },
+    {
+      "idx": 64,
+      "level": 3,
+      "description": "return from a call to EVP_PKEY_new",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "329:2",
+      "func_name": "EVP_PKEY_new",
+      "func_key": "crypto/evp/p_lib.c@313:1-329:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L329"
+    },
+    {
+      "idx": 65,
+      "level": 2,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "281:6",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L281"
+    },
+    {
+      "idx": 66,
+      "level": 2,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "283:3",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L283"
+    },
+    {
+      "idx": 67,
+      "level": 3,
+      "description": "start of procedure ERR_put_error()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "668:1",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L668"
+    },
+    {
+      "idx": 68,
+      "level": 3,
+      "description": "Skipping ERR_get_state(): empty list of specs",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "692:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L692"
+    },
+    {
+      "idx": 69,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "694:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L694"
+    },
+    {
+      "idx": 70,
+      "level": 3,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "695:6",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L695"
+    },
+    {
+      "idx": 71,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "697:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L697"
+    },
+    {
+      "idx": 72,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "698:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L698"
+    },
+    {
+      "idx": 73,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "699:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L699"
+    },
+    {
+      "idx": 74,
+      "level": 3,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "700:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L700"
+    },
+    {
+      "idx": 75,
+      "level": 3,
+      "description": "Taking true branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "701:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L701"
+    },
+    {
+      "idx": 76,
+      "level": 3,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "701:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L701"
+    },
+    {
+      "idx": 77,
+      "level": 3,
+      "description": "Loop condition is false. Leaving loop",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "701:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L701"
+    },
+    {
+      "idx": 78,
+      "level": 3,
+      "description": "return from a call to ERR_put_error",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/err/err.c",
+      "loc": "702:2",
+      "func_name": "ERR_put_error",
+      "func_key": "crypto/err/err.c@668:1-702:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/err/err.c/#L702"
+    },
+    {
+      "idx": 79,
+      "level": 2,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "374:1",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L374"
+    },
+    {
+      "idx": 80,
+      "level": 2,
+      "description": "Taking false branch",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "375:6",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L375"
+    },
+    {
+      "idx": 81,
+      "level": 2,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "377:2",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L377"
+    },
+    {
+      "idx": 82,
+      "level": 2,
+      "description": "return from a call to X509_PUBKEY_get",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "378:2",
+      "func_name": "X509_PUBKEY_get",
+      "func_key": "crypto/asn1/x_pubkey.c@259:1-378:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/asn1/x_pubkey.c/#L378"
+    },
+    {
+      "idx": 83,
+      "level": 1,
+      "description": "return from a call to X509_get_pubkey",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/x509/x509_cmp.c",
+      "loc": "379:2",
+      "func_name": "X509_get_pubkey",
+      "func_key": "crypto/x509/x509_cmp.c@374:1-379:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/x509/x509_cmp.c/#L379"
+    },
+    {
+      "idx": 84,
+      "level": 0,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "ssl/ssl_rsa.c",
+      "loc": "197:3",
+      "func_name": "ssl_set_pkey",
+      "func_key": "ssl/ssl_rsa.c@182:1-225:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/ssl/ssl_rsa.c/#L197"
+    },
+    {
+      "idx": 85,
+      "level": 1,
+      "description": "start of procedure EVP_PKEY_copy_parameters()",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "164:1",
+      "func_name": "EVP_PKEY_copy_parameters",
+      "func_key": "crypto/evp/p_lib.c@164:1-209:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L164"
+    },
+    {
+      "idx": 86,
+      "level": 1,
+      "description": "",
+      "func_removed": null,
+      "file_removed": null,
+      "file": "crypto/evp/p_lib.c",
+      "loc": "166:6",
+      "func_name": "EVP_PKEY_copy_parameters",
+      "func_key": "crypto/evp/p_lib.c@164:1-209:3",
+      "is_func_definition": true,
+      "url": "https://github.com/openssl/openssl/blob/1a5a1a93f6c48b135a2b384f7e571abb7b90fc55/crypto/evp/p_lib.c/#L166"
+    }
+  ],
+  "functions": {
+    "ssl/ssl_rsa.c@182:1-225:3": {
+      "file": "ssl/ssl_rsa.c",
+      "loc": "182:1-225:3",
+      "name": "ssl_set_pkey",
+      "touched_by_commit": false,
+      "code": "static int ssl_set_pkey(CERT *c, EVP_PKEY *pkey)\n\t{\n\tint i;\n\n\ti=ssl_cert_type(NULL,pkey);\n\tif (i < 0)\n\t\t{\n\t\tSSLerr(SSL_F_SSL_SET_PKEY,SSL_R_UNKNOWN_CERTIFICATE_TYPE);\n\t\treturn(0);\n\t\t}\n\n\tif (c->pkeys[i].x509 != NULL)\n\t\t{\n\t\tEVP_PKEY *pktmp;\n\t\tpktmp =\tX509_get_pubkey(c->pkeys[i].x509);\n\t\tEVP_PKEY_copy_parameters(pktmp,pkey);\n\t\tEVP_PKEY_free(pktmp);\n\t\tERR_clear_error();\n\n#ifndef OPENSSL_NO_RSA\n\t\t/* Don't check the public/private key, this is mostly\n\t\t * for smart cards. */\n\t\tif ((pkey->type == EVP_PKEY_RSA) &&\n\t\t\t(RSA_flags(pkey->pkey.rsa) & RSA_METHOD_FLAG_NO_CHECK))\n\t\t\t;\n\t\telse\n#endif\n\t\tif (!X509_check_private_key(c->pkeys[i].x509,pkey))\n\t\t\t{\n\t\t\tX509_free(c->pkeys[i].x509);\n\t\t\tc->pkeys[i].x509 = NULL;\n\t\t\treturn 0;\n\t\t\t}\n\t\t}\n\n\tif (c->pkeys[i].privatekey != NULL)\n\t\tEVP_PKEY_free(c->pkeys[i].privatekey);\n\tCRYPTO_add(&pkey->references,1,CRYPTO_LOCK_EVP_PKEY);\n\tc->pkeys[i].privatekey=pkey;\n\tc->key= &(c->pkeys[i]);\n\n\tc->valid=0;\n\treturn(1);\n\t}"
+    },
+    "crypto/x509/x509_cmp.c@374:1-379:3": {
+      "file": "crypto/x509/x509_cmp.c",
+      "loc": "374:1-379:3",
+      "name": "X509_get_pubkey",
+      "touched_by_commit": false,
+      "code": "EVP_PKEY *X509_get_pubkey(X509 *x)\n\t{\n\tif ((x == NULL) || (x->cert_info == NULL))\n\t\treturn(NULL);\n\treturn(X509_PUBKEY_get(x->cert_info->key));\n\t}"
+    },
+    "crypto/asn1/x_pubkey.c@259:1-378:3": {
+      "file": "crypto/asn1/x_pubkey.c",
+      "loc": "259:1-378:3",
+      "name": "X509_PUBKEY_get",
+      "touched_by_commit": true,
+      "code": "EVP_PKEY *X509_PUBKEY_get(X509_PUBKEY *key)\n\t{\n\tEVP_PKEY *ret=NULL;\n\tlong j;\n\tint type;\n\tconst unsigned char *p;\n#if !defined(OPENSSL_NO_DSA) || !defined(OPENSSL_NO_ECDSA)\n\tconst unsigned char *cp;\n\tX509_ALGOR *a;\n#endif\n\n\tif (key == NULL) goto err;\n\n\tif (key->pkey != NULL)\n\t\t{\n\t\tCRYPTO_add(&key->pkey->references, 1, CRYPTO_LOCK_EVP_PKEY);\n\t\treturn(key->pkey);\n\t\t}\n\n\tif (key->public_key == NULL) goto err;\n\n\ttype=OBJ_obj2nid(key->algor->algorithm);\n\tif ((ret = EVP_PKEY_new()) == NULL)\n\t\t{\n\t\tX509err(X509_F_X509_PUBKEY_GET, ERR_R_MALLOC_FAILURE);\n\t\tgoto err;\n\t\t}\n\tret->type = EVP_PKEY_type(type);\n\n\t/* the parameters must be extracted before the public key (ECDSA!) */\n\t\n#if !defined(OPENSSL_NO_DSA) || !defined(OPENSSL_NO_ECDSA)\n\ta=key->algor;\n#endif\n\n\tif (0)\n\t\t;\n#ifndef OPENSSL_NO_DSA\n\telse if (ret->type == EVP_PKEY_DSA)\n\t\t{\n\t\tif (a->parameter && (a->parameter->type == V_ASN1_SEQUENCE))\n\t\t\t{\n\t\t\tif ((ret->pkey.dsa = DSA_new()) == NULL)\n\t\t\t\t{\n\t\t\t\tX509err(X509_F_X509_PUBKEY_GET, ERR_R_MALLOC_FAILURE);\n\t\t\t\tgoto err;\n\t\t\t\t}\n\t\t\tret->pkey.dsa->write_params=0;\n\t\t\tcp=p=a->parameter->value.sequence->data;\n\t\t\tj=a->parameter->value.sequence->length;\n\t\t\tif (!d2i_DSAparams(&ret->pkey.dsa, &cp, (long)j))\n\t\t\t\tgoto err;\n\t\t\t}\n\t\tret->save_parameters=1;\n\t\t}\n#endif\n#ifndef OPENSSL_NO_EC\n\telse if (ret->type == EVP_PKEY_EC)\n\t\t{\n\t\tif (a->parameter && (a->parameter->type == V_ASN1_SEQUENCE))\n\t\t\t{\n\t\t\t/* type == V_ASN1_SEQUENCE => we have explicit parameters\n                         * (e.g. parameters in the X9_62_EC_PARAMETERS-structure )\n\t\t\t */\n\t\t\tif ((ret->pkey.ec= EC_KEY_new()) == NULL)\n\t\t\t\t{\n\t\t\t\tX509err(X509_F_X509_PUBKEY_GET, \n\t\t\t\t\tERR_R_MALLOC_FAILURE);\n\t\t\t\tgoto err;\n\t\t\t\t}\n\t\t\tcp = p = a->parameter->value.sequence->data;\n\t\t\tj = a->parameter->value.sequence->length;\n\t\t\tif (!d2i_ECParameters(&ret->pkey.ec, &cp, (long)j))\n\t\t\t\t{\n\t\t\t\tX509err(X509_F_X509_PUBKEY_GET, ERR_R_EC_LIB);\n\t\t\t\tgoto err;\n\t\t\t\t}\n\t\t\t}\n\t\telse if (a->parameter && (a->parameter->type == V_ASN1_OBJECT))\n\t\t\t{\n\t\t\t/* type == V_ASN1_OBJECT => the parameters are given\n\t\t\t * by an asn1 OID\n\t\t\t */\n\t\t\tEC_KEY   *ec_key;\n\t\t\tEC_GROUP *group;\n\n\t\t\tif (ret->pkey.ec == NULL)\n\t\t\t\tret->pkey.ec = EC_KEY_new();\n\t\t\tec_key = ret->pkey.ec;\n\t\t\tif (ec_key == NULL)\n\t\t\t\tgoto err;\n\t\t\tgroup = EC_GROUP_new_by_curve_name(OBJ_obj2nid(a->parameter->value.object));\n\t\t\tif (group == NULL)\n\t\t\t\tgoto err;\n\t\t\tEC_GROUP_set_asn1_flag(group, OPENSSL_EC_NAMED_CURVE);\n\t\t\tif (EC_KEY_set_group(ec_key, group) == 0)\n\t\t\t\tgoto err;\n\t\t\tEC_GROUP_free(group);\n\t\t\t}\n\t\t\t/* the case implicitlyCA is currently not implemented */\n\t\tret->save_parameters = 1;\n\t\t}\n#endif\n\n\tp=key->public_key->data;\n        j=key->public_key->length;\n        if (!d2i_PublicKey(type, &ret, &p, (long)j))\n\t\t{\n\t\tX509err(X509_F_X509_PUBKEY_GET, X509_R_ERR_ASN1_LIB);\n\t\tgoto err;\n\t\t}\n\n\tkey->pkey = ret;\n\tCRYPTO_add(&ret->references, 1, CRYPTO_LOCK_EVP_PKEY);\n\treturn(ret);\nerr:\n\tif (ret != NULL)\n\t\tEVP_PKEY_free(ret);\n\treturn(NULL);\n\t}"
+    },
+    "crypto/objects/obj_dat.c@369:1-391:3": {
+      "file": "crypto/objects/obj_dat.c",
+      "loc": "369:1-391:3",
+      "name": "OBJ_obj2nid",
+      "touched_by_commit": false,
+      "code": "int OBJ_obj2nid(const ASN1_OBJECT *a)\n\t{\n\tASN1_OBJECT **op;\n\tADDED_OBJ ad,*adp;\n\n\tif (a == NULL)\n\t\treturn(NID_undef);\n\tif (a->nid != 0)\n\t\treturn(a->nid);\n\n\tif (added != NULL)\n\t\t{\n\t\tad.type=ADDED_DATA;\n\t\tad.obj=(ASN1_OBJECT *)a; /* XXX: ugly but harmless */\n\t\tadp=(ADDED_OBJ *)lh_retrieve(added,&ad);\n\t\tif (adp != NULL) return (adp->obj->nid);\n\t\t}\n\top=(ASN1_OBJECT **)OBJ_bsearch((const char *)&a,(const char *)obj_objs,\n\t\tNUM_OBJ, sizeof(ASN1_OBJECT *),obj_cmp);\n\tif (op == NULL)\n\t\treturn(NID_undef);\n\treturn((*op)->nid);\n\t}"
+    },
+    "crypto/lhash/lhash.c@248:1-268:3": {
+      "file": "crypto/lhash/lhash.c",
+      "loc": "248:1-268:3",
+      "name": "lh_retrieve",
+      "touched_by_commit": false,
+      "code": "void *lh_retrieve(LHASH *lh, const void *data)\n\t{\n\tunsigned long hash;\n\tLHASH_NODE **rn;\n\tvoid *ret;\n\n\tlh->error=0;\n\trn=getrn(lh,data,&hash);\n\n\tif (*rn == NULL)\n\t\t{\n\t\tlh->num_retrieve_miss++;\n\t\treturn(NULL);\n\t\t}\n\telse\n\t\t{\n\t\tret= (*rn)->data;\n\t\tlh->num_retrieve++;\n\t\t}\n\treturn(ret);\n\t}"
+    },
+    "crypto/evp/p_lib.c@313:1-329:3": {
+      "file": "crypto/evp/p_lib.c",
+      "loc": "313:1-329:3",
+      "name": "EVP_PKEY_new",
+      "touched_by_commit": false,
+      "code": "EVP_PKEY *EVP_PKEY_new(void)\n\t{\n\tEVP_PKEY *ret;\n\n\tret=(EVP_PKEY *)OPENSSL_malloc(sizeof(EVP_PKEY));\n\tif (ret == NULL)\n\t\t{\n\t\tEVPerr(EVP_F_EVP_PKEY_NEW,ERR_R_MALLOC_FAILURE);\n\t\treturn(NULL);\n\t\t}\n\tret->type=EVP_PKEY_NONE;\n\tret->references=1;\n\tret->pkey.ptr=NULL;\n\tret->attributes=NULL;\n\tret->save_parameters=1;\n\treturn(ret);\n\t}"
+    },
+    "crypto/mem.c@291:1-318:3": {
+      "file": "crypto/mem.c",
+      "loc": "291:1-318:3",
+      "name": "CRYPTO_malloc",
+      "touched_by_commit": false,
+      "code": "void *CRYPTO_malloc(int num, const char *file, int line)\n\t{\n\tvoid *ret = NULL;\n\textern unsigned char cleanse_ctr;\n\n\tif (num <= 0) return NULL;\n\n\tallow_customize = 0;\n\tif (malloc_debug_func != NULL)\n\t\t{\n\t\tallow_customize_debug = 0;\n\t\tmalloc_debug_func(NULL, num, file, line, 0);\n\t\t}\n\tret = malloc_ex_func(num,file,line);\n#ifdef LEVITTE_DEBUG_MEM\n\tfprintf(stderr, \"LEVITTE_DEBUG_MEM:         > 0x%p (%d)\\n\", ret, num);\n#endif\n\tif (malloc_debug_func != NULL)\n\t\tmalloc_debug_func(ret, num, file, line, 1);\n\n        /* Create a dependency on the value of 'cleanse_ctr' so our memory\n         * sanitisation function can't be optimised out. NB: We only do\n         * this for >2Kb so the overhead doesn't bother us. */\n        if(ret && (num > 2048))\n                ((unsigned char *)ret)[0] = cleanse_ctr;\n\n\treturn ret;\n\t}"
+    },
+    "crypto/err/err.c@668:1-702:3": {
+      "file": "crypto/err/err.c",
+      "loc": "668:1-702:3",
+      "name": "ERR_put_error",
+      "touched_by_commit": false,
+      "code": "void ERR_put_error(int lib, int func, int reason, const char *file,\n\t     int line)\n\t{\n\tERR_STATE *es;\n\n#ifdef _OSD_POSIX\n\t/* In the BS2000-OSD POSIX subsystem, the compiler generates\n\t * path names in the form \"*POSIX(/etc/passwd)\".\n\t * This dirty hack strips them to something sensible.\n\t * @@@ We shouldn't modify a const string, though.\n\t */\n\tif (strncmp(file,\"*POSIX(\", sizeof(\"*POSIX(\")-1) == 0) {\n\t\tchar *end;\n\n\t\t/* Skip the \"*POSIX(\" prefix */\n\t\tfile += sizeof(\"*POSIX(\")-1;\n\t\tend = &file[strlen(file)-1];\n\t\tif (*end == ')')\n\t\t\t*end = '\\0';\n\t\t/* Optional: use the basename of the path only. */\n\t\tif ((end = strrchr(file, '/')) != NULL)\n\t\t\tfile = &end[1];\n\t}\n#endif\n\tes=ERR_get_state();\n\n\tes->top=(es->top+1)%ERR_NUM_ERRORS;\n\tif (es->top == es->bottom)\n\t\tes->bottom=(es->bottom+1)%ERR_NUM_ERRORS;\n\tes->err_flags[es->top]=0;\n\tes->err_buffer[es->top]=ERR_PACK(lib,func,reason);\n\tes->err_file[es->top]=file;\n\tes->err_line[es->top]=line;\n\terr_clear_data(es,es->top);\n\t}"
+    },
+    "crypto/evp/p_lib.c@164:1-209:3": {
+      "file": "crypto/evp/p_lib.c",
+      "loc": "164:1-209:3",
+      "name": "EVP_PKEY_copy_parameters",
+      "touched_by_commit": false,
+      "code": "int EVP_PKEY_copy_parameters(EVP_PKEY *to, const EVP_PKEY *from)\n\t{\n\tif (to->type != from->type)\n\t\t{\n\t\tEVPerr(EVP_F_EVP_PKEY_COPY_PARAMETERS,EVP_R_DIFFERENT_KEY_TYPES);\n\t\tgoto err;\n\t\t}\n\n\tif (EVP_PKEY_missing_parameters(from))\n\t\t{\n\t\tEVPerr(EVP_F_EVP_PKEY_COPY_PARAMETERS,EVP_R_MISSING_PARAMETERS);\n\t\tgoto err;\n\t\t}\n#ifndef OPENSSL_NO_DSA\n\tif (to->type == EVP_PKEY_DSA)\n\t\t{\n\t\tBIGNUM *a;\n\n\t\tif ((a=BN_dup(from->pkey.dsa->p)) == NULL) goto err;\n\t\tif (to->pkey.dsa->p != NULL) BN_free(to->pkey.dsa->p);\n\t\tto->pkey.dsa->p=a;\n\n\t\tif ((a=BN_dup(from->pkey.dsa->q)) == NULL) goto err;\n\t\tif (to->pkey.dsa->q != NULL) BN_free(to->pkey.dsa->q);\n\t\tto->pkey.dsa->q=a;\n\n\t\tif ((a=BN_dup(from->pkey.dsa->g)) == NULL) goto err;\n\t\tif (to->pkey.dsa->g != NULL) BN_free(to->pkey.dsa->g);\n\t\tto->pkey.dsa->g=a;\n\t\t}\n#endif\n#ifndef OPENSSL_NO_EC\n\tif (to->type == EVP_PKEY_EC)\n\t\t{\n\t\tEC_GROUP *group = EC_GROUP_dup(EC_KEY_get0_group(from->pkey.ec));\n\t\tif (group == NULL)\n\t\t\tgoto err;\n\t\tif (EC_KEY_set_group(to->pkey.ec, group) == 0)\n\t\t\tgoto err;\n\t\tEC_GROUP_free(group);\n\t\t}\n#endif\n\treturn(1);\nerr:\n\treturn(0);\n\t}"
+    }
+  },
+  "commit": {
+    "url": "https://github.com/openssl/openssl/commit/448be743350791d32764fac38f5d3c8ffda481b2",
+    "changes": [
+      {
+        "before": "CHANGES",
+        "after": "CHANGES",
+        "changes": [
+          "6,0^^7,8"
+        ]
+      },
+      {
+        "before": "crypto/asn1/Makefile",
+        "after": "crypto/asn1/Makefile",
+        "changes": [
+          "28,1^^28,1",
+          "41,1^^41,1"
+        ]
+      },
+      {
+        "before": "crypto/asn1/ameth_lib.c",
+        "after": "crypto/asn1/ameth_lib.c",
+        "changes": [
+          "0,0^^1,113"
+        ]
+      },
+      {
+        "before": "crypto/asn1/asn1.h",
+        "after": "crypto/asn1/asn1.h",
+        "changes": [
+          "284,0^^285,20"
+        ]
+      },
+      {
+        "before": "crypto/asn1/p8_pkey.c",
+        "after": "crypto/asn1/p8_pkey.c",
+        "changes": [
+          "85,0^^86,70"
+        ]
+      },
+      {
+        "before": "crypto/asn1/x_algor.c",
+        "after": "crypto/asn1/x_algor.c",
+        "changes": [
+          "73,0^^74,52"
+        ]
+      },
+      {
+        "before": "crypto/asn1/x_pubkey.c",
+        "after": "crypto/asn1/x_pubkey.c",
+        "changes": [
+          "92,4^^92,1",
+          "99,2^^96,1",
+          "102,4^^98,1",
+          "107,2^^100,1",
+          "110,2^^102,1",
+          "113,2^^104,1",
+          "116,2^^106,3",
+          "119,1^^109,0",
+          "121,61^^111,1",
+          "183,32^^113,3",
+          "217,2^^118,1",
+          "221,15^^121,1",
+          "237,10^^122,0",
+          "254,1^^130,1",
+          "262,7^^138,1",
+          "270,1^^140,1",
+          "275,1^^145,1",
+          "278,1^^148,1",
+          "280,1^^149,0",
+          "284,1^^153,1",
+          "286,1^^154,0",
+          "288,5^^156,1",
+          "294,4^^158,1",
+          "299,1^^160,1",
+          "301,1^^162,1",
+          "303,2^^164,3",
+          "306,5^^167,0",
+          "312,7^^169,1",
+          "320,16^^171,3",
+          "337,23^^174,0",
+          "361,5^^176,1",
+          "367,2^^178,2",
+          "373,2^^184,4",
+          "532,0^^346,36"
+        ]
+      },
+      {
+        "before": "crypto/dsa/Makefile",
+        "after": "crypto/dsa/Makefile",
+        "changes": [
+          "21,1^^21,1",
+          "23,1^^23,1"
+        ]
+      },
+      {
+        "before": "crypto/dsa/dsa.h",
+        "after": "crypto/dsa/dsa.h",
+        "changes": [
+          "264,0^^265,4",
+          "272,0^^277,2",
+          "273,0^^280,1",
+          "274,0^^282,1"
+        ]
+      },
+      {
+        "before": "crypto/dsa/dsa_ameth.c",
+        "after": "crypto/dsa/dsa_ameth.c",
+        "changes": [
+          "0,0^^1,376"
+        ]
+      },
+      {
+        "before": "crypto/dsa/dsa_err.c",
+        "after": "crypto/dsa/dsa_err.c",
+        "changes": [
+          "80,0^^81,4",
+          "91,0^^96,2",
+          "92,0^^99,1",
+          "93,0^^101,1"
+        ]
+      },
+      {
+        "before": "crypto/ec/Makefile",
+        "after": "crypto/ec/Makefile",
+        "changes": [
+          "22,1^^22,1",
+          "26,1^^26,1"
+        ]
+      },
+      {
+        "before": "crypto/ec/ec.h",
+        "after": "crypto/ec/ec.h",
+        "changes": [
+          "920,0^^921,6",
+          "1029,0^^1036,1"
+        ]
+      },
+      {
+        "before": "crypto/ec/ec_ameth.c",
+        "after": "crypto/ec/ec_ameth.c",
+        "changes": [
+          "0,0^^1,360"
+        ]
+      },
+      {
+        "before": "crypto/evp/evp.h",
+        "after": "crypto/evp/evp.h",
+        "changes": [
+          "849,0^^850,2",
+          "875,0^^878,1",
+          "920,0^^924,1",
+          "927,0^^932,2"
+        ]
+      },
+      {
+        "before": "crypto/evp/evp_err.c",
+        "after": "crypto/evp/evp_err.c",
+        "changes": [
+          "89,0^^90,1",
+          "137,0^^139,1",
+          "144,0^^147,2"
+        ]
+      },
+      {
+        "before": "crypto/evp/evp_pkey.c",
+        "after": "crypto/evp/evp_pkey.c",
+        "changes": [
+          "6,1^^6,1",
+          "72,6^^72,1",
+          "84,23^^79,2",
+          "109,9^^83,3",
+          "122,113^^89,0",
+          "236,6^^91,1",
+          "243,1^^93,1",
+          "245,4^^95,1",
+          "249,0^^97,2",
+          "251,2^^100,3",
+          "254,1^^103,0",
+          "256,9^^104,0",
+          "266,3^^106,3",
+          "270,7^^109,0",
+          "278,3^^111,1",
+          "282,51^^112,0",
+          "334,2^^114,1",
+          "337,3^^116,2",
+          "340,0^^119,4",
+          "352,0^^135,1",
+          "359,14^^141,0",
+          "374,1^^143,1",
+          "376,15^^145,17",
+          "392,6^^163,1",
+          "399,2^^165,3",
+          "402,7^^168,0",
+          "411,0^^172,3",
+          "435,295^^197,0"
+        ]
+      },
+      {
+        "before": "crypto/ossl_typ.h",
+        "after": "crypto/ossl_typ.h",
+        "changes": [
+          "123,0^^124,2",
+          "141,0^^144,1",
+          "144,0^^148,2"
+        ]
+      },
+      {
+        "before": "crypto/rsa/Makefile",
+        "after": "crypto/rsa/Makefile",
+        "changes": [
+          "22,1^^22,1",
+          "25,1^^25,1"
+        ]
+      },
+      {
+        "before": "crypto/rsa/rsa.h",
+        "after": "crypto/rsa/rsa.h",
+        "changes": [
+          "376,0^^377,3"
+        ]
+      },
+      {
+        "before": "crypto/rsa/rsa_ameth.c",
+        "after": "crypto/rsa/rsa_ameth.c",
+        "changes": [
+          "0,0^^1,154"
+        ]
+      },
+      {
+        "before": "crypto/rsa/rsa_err.c",
+        "after": "crypto/rsa/rsa_err.c",
+        "changes": [
+          "91,1^^91,1",
+          "103,0^^104,3",
+          "109,1^^112,1",
+          "144,1^^146,0",
+          "148,0^^151,2",
+          "154,1^^157,0"
+        ]
+      },
+      {
+        "before": "crypto/x509/x509.h",
+        "after": "crypto/x509/x509.h",
+        "changes": [
+          "158,1^^158,1",
+          "163,1^^163,1",
+          "548,1^^548,1",
+          "559,1^^559,1",
+          "861,0^^862,4",
+          "1246,0^^1251,16",
+          "1325,0^^1346,1",
+          "1326,0^^1348,2"
+        ]
+      },
+      {
+        "before": "crypto/x509/x509_err.c",
+        "after": "crypto/x509/x509_err.c",
+        "changes": [
+          "134,0^^135,1",
+          "135,0^^137,2"
+        ]
+      }
+    ]
+  },
+  "compiler_args": {
+    "ssl/ssl_rsa.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include",
+    "crypto/x509/x509_cmp.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include",
+    "crypto/asn1/x_pubkey.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include",
+    "crypto/objects/obj_dat.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include",
+    "crypto/lhash/lhash.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include",
+    "crypto/evp/p_lib.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include",
+    "crypto/mem.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include",
+    "crypto/err/err.c": "-I<$repo$>/crypto -I<$repo$> -I<$repo$>/include"
+  },
+  "zipped_bug_report": "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"
+}

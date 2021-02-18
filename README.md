@@ -1,8 +1,6 @@
 # D2A Dataset and Generation Pipeline
 
-This repository is to support contributions for tools and new data entries for the D2A dataset hosted in DAX
-
-The goal of this dataset is to create a unique, publicly available, open for contributions, code vulnerability dataset to foster new research in this field. Existing datasets are not very transparent on their labeling methods, nor their data acquisition methods, some are synthetic and too simplistic, none offers data beyond the vulnerable function. We expect to improve and open the field of research in this space.
+This repository is to support contributions for tools that generated the D2A dataset hosted on [IBM Data Asset eXchange](https://developer.ibm.com/exchanges/data/all/d2a/)
 
 ## Table of Contents
 * [Introduction](#introduction)
@@ -22,11 +20,11 @@ D2A is a differential analysis based approach to label issues reported by static
 
 ### Why D2A?
 
-Given programs can exhibit diverse behaviors, training machine learning models for code understanding and vulnerability detection requires large datasets. However, according to [a recent survey](https://ieeexplore.ieee.org/document/9108283), lacking good and real-world datasets has become a major barrier for this field. Many existing works created self-constructed datasets based on different criteria and only a few fully released their datasets. We compare popluar publically available datatsets for vulnerablity detection tasks as follows
+Given programs can exhibit diverse behaviors, training machine learning models for code understanding and vulnerability detection requires large datasets. However, according to [a recent survey](https://ieeexplore.ieee.org/document/9108283), lacking good and real-world datasets has become a major barrier for this field. Many existing works created self-constructed datasets based on different criteria and only a few fully released their datasets. The following table summarizes the characteristics of a few popular publicly available datasets for software vulnerability detection tasks.
 
 ![Dataset Comparison.](docs/assets/dataset_comparison.png)
 
-Note: Because there is no oracle, there is no perfect dataset that is large enough and has 100% correct labels for AI-based vulnerability detection tasks. Datasets generated from manual reviews have better quality labels in general. However, limited by their nature, they are usually not large enough for model training. On the other hand, the quality of the D2A dataset is bounded by the capacity of static analysis. D2A can produce large datasets with better labels comparing to the ones labeled solely by static analysis, and complement existing high-quality datasets.
+Note: Due to the lack of oracle, there is no perfect dataset that is large enough and has 100% correct labels for AI-based vulnerability detection tasks. Datasets generated from manual reviews have better quality labels in general. However, limited by their nature, they are usually not large enough for model training. On the other hand, although the quality of the D2A dataset is bounded by the capacity of static analysis,D2A can produce large datasets with better labels comparing to the ones labeled solely by static analysis, and complement existing high-quality datasets.
 
 ### Differential Analysis and D2A Dataset Generation Pipeline 
 
@@ -44,7 +42,7 @@ The following figure shows the overview of the D2A dataset generation pipeline.
 
 * **Pairwise Static Analysis** ([scripts/infer_pipeline](scripts/infer_pipeline)) run the analyzer on the before-commit and after-commit versions for each selected commit hashes obtained in the previous step
 
-* **Auto-labeler** ([scripts/auto_labeler](scripts/auto_labeler)) merges the analysis results for all selected commit versioins and label each issue based on differential logic and commit history heuristics. 
+* **Auto-labeler** ([scripts/auto_labeler](scripts/auto_labeler)) merges the analysis results for all selected commit versions and label each issue based on differential logic and commit history heuristics. 
 
 * **Function Extractor** ([scripts/dataset_generator](scripts/dataset_generator)) extracts the bodies of the functions involved in the trace. There are two types of samples: 
 
@@ -57,9 +55,9 @@ The following figure shows the overview of the D2A dataset generation pipeline.
 
 The D2A dataset and the global splits can be downloaded from [IBM Data Asset eXchange](https://developer.ibm.com/exchanges/data/all/d2a/). 
 
-The latest version is `v1.0.0`.
+The latest version: `v1.0.0`.
 
-## Dataset Description
+## Sample Format Description and Dataset Stats
 
 Details could be found in [Dataset Description and Stats](docs/dataset_stats.md).
 
@@ -77,7 +75,7 @@ Please refer to [Running the Dataset Generation Pipeline](docs/pipeline.md).
  
 D2A: A Dataset Built for AI-Based Vulnerability Detection Methods Using Differential Analysis 
 
-[[ICSE-SEIP'21 Website]](https://conf.researchr.org/details/icse-2021/icse-2021-Software-Engineering-in-Practice/28/D2A-A-Dataset-Built-for-AI-Based-Vulnerability-Detection-Methods-Using-Differential-)  [[PDF]](docs/assets/D2A_paper.pdf)
+[[arXiv]](https://arxiv.org/abs/2102.07995)  [[ICSE-SEIP'21]](https://conf.researchr.org/details/icse-2021/icse-2021-Software-Engineering-in-Practice/28/D2A-A-Dataset-Built-for-AI-Based-Vulnerability-Detection-Methods-Using-Differential-)
 
 
 ### Citation
@@ -95,4 +93,3 @@ Please cite the following paper, if the D2A dataset or generation pipeline is us
   booktitle = {Proceedings of the ACM/IEEE 43rd International Conference on Software Engineering: Software Engineering in Practice}
 }
 ```
-<a href="https://www.web-stat.com"><img width="0" src="https://app.wts2.one/7/2/2052316.png"></a>

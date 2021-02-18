@@ -8,13 +8,6 @@ function make_clean {
   time make clean
   }
 
-#Infer path
-#uname -a | grep "ppc64" &> /dev/null
-# if [ $? == 0 ]; then
-# 	export ZHENGYU_PREFIX="/u/zhengyu/local_ppc"
-# else
-# 	export ZHENGYU_PREFIX="/u/zhengyu/local_x86"
-# fi
 export ZHENGYU_PREFIX="/u/zhengyu/local_x86"
 echo "configure_project: ZHENGYU_PREFIX=$ZHENGYU_PREFIX"
 export PATH="$ZHENGYU_PREFIX/bin:$PATH"
