@@ -7,7 +7,7 @@ For each project, there are 3 `pickle.gz` files like `nginx_after_fix_extractor_
 
 ## Viewing the Samples in Pickle Files
 
-Each `pickle.gz` file contains compressed samples in JSON (e.g. [auto_labeler_1.json](samples/auto_labeler_1.json)). 
+Each `pickle.gz` file contains compressed samples in JSON (e.g. [auto_labeler_0.json](samples/auto_labeler_0.json)). 
 
 Function [print_sample()](../scripts/dataset_generator/misc/read_pickled_samples.py#L24-L52) in [read_pickled_samples.py](../scripts/dataset_generator/misc/read_pickled_samples.py) reads the JSON objects from pickle file and [decode the compressed static analysis output](../scripts/dataset_generator/misc/read_pickled_samples.py#L49). 
 
