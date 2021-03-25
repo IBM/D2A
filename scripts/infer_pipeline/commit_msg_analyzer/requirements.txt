@@ -1,7 +1,0 @@
-click==7.1.1
-joblib==0.14.1
-nltk==3.5
-numpy==1.18.2
-regex==2020.4.4
-tqdm==4.45.0
-pathvalidate==2.3.0
