@@ -1,8 +1,22 @@
-This document describes D2A V1 files representing the data used in the 'combined' experiment in our ICSE paper.
+# D2A Leaderboard Data
 
-Source files:
+This document describes D2A V1 Leaderboard data.
+
+## Source files:
 The files were created using source pickle files: https://developer.ibm.com/exchanges/data/all/d2a/
-Description:
+
+## Data:
+
+The splits can be obtained from the zip file [d2a_leaderboard_splits.zip]("")
+
+The splits are:
+1. d2a_leaderboard_train.csv
+2. d2a_leaderboard_dev.csv
+3. d2a_leaderboard_test.csv
+
+All three files have identical columns except test which does not contain the "label" column.
+
+## Description:
 
 The data contains all the infer default security errors from 5 projects: libtiff nginx httpd openssl libav
 
