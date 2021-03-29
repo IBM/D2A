@@ -21,9 +21,9 @@ The dataset for the Code + Trace, Trace and Code tasks are quiet unbalanced with
 
 * Balanced Data: For the balanced dataset we use Accuracy to measure model performance.
 * Unbalanced Data: Because the dataset is so heavily unbalanced, we cannot use Accuracy since the model predicting only 0 would have a 98% accuracy. Instead we use the two metrics described below.
-  * AUROC: Many opensource project datasets are huge with hundereds of thousands of examples and thousands of 1 label examples. Also the cost associated with veryfying every label is high. Which is why it is important to rank the models in the order of model confidence in labels. We use AUROC for this purpose.
-  *
-### Overall: Average
+  * AUROC: Many opensource project datasets are huge with hundereds of thousands of examples and thousands of 1 label examples. The cost associated with veryfying every label is high. Which is why it is important to rank the models in the order of model confidence in labels. We use AUROC percentage for this purpose.
+  * F1 - 5% FPR: The macro-average F1 score is generally soncidered a good metric for unbalanced datasets. We want the AUROC curve to peak as early as possible so we calculate the macro-average F1-score percentage at 5% FPR.
+* Overall: To get the overall model performance, we calculate the simple average percentage of all the metrics accross all the tasks.
 
 ## Baselines
 
