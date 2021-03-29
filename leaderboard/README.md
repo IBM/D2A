@@ -4,9 +4,11 @@
 
 ## Data
 
-1. Infer Bug Reports (Trace)
-2. Bug function source code (Function)
-3. Bug function source code, trace functions source code and bug function file URL (Code)
+All the data is dervied from the original [D2A dataset](https://developer.ibm.com/exchanges/data/all/d2a/).
+
+1. Infer Bug Reports (Trace): This dataset consists of Infer bug reports, which are a combination of English language and C Programming language text.
+3. Bug function source code (Function)
+4. Bug function source code, trace functions source code and bug function file URL (Code)
 
 ## Tasks
 
