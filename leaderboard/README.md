@@ -4,7 +4,9 @@
 
 ## Data
 
-All the data is dervied from the original [D2A dataset](https://developer.ibm.com/exchanges/data/all/d2a/).
+All the data is dervied from the original [D2A dataset](https://developer.ibm.com/exchanges/data/all/d2a/) which contains many kinds of data to help with program analysis. In order to understand the impact of different data on predictions, we use them in isolation and in combination. The dataset also contains two kinds of labels, auto-lebeler labels and after-fix labels. The leaderboard makes use of both kinds of labels. 
+
+Details of different kinds of data and the corresponding labels are given below. The D2A dataset contains a lot more information which we could not use in the leaderboard tasks. You can read about it [here](https://github.com/IBM/D2A/blob/main/docs/dataset_stats.md).
 
 1. Infer Bug Reports (Trace): This dataset consists of Infer bug reports, which are a combination of English language and C Programming language text.
 3. Bug function source code (Function)
@@ -12,9 +14,9 @@ All the data is dervied from the original [D2A dataset](https://developer.ibm.co
 
 ## Tasks
 
-1. Code + Trace
+1. Code
 2. Trace
-3. Code
+3. Code + Trace
 4. Function
 
 ## Metrics
