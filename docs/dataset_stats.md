@@ -89,7 +89,7 @@ Each `pickle.gz` file contains compressed samples in JSON (e.g. [auto_labeler_0.
     <tr>
       <td style="vertical-align:top"> <a href="samples/auto_labeler_0.json#L15" target="_blank">adjusted_bug_loc</a> </td>
       <td>
-      If not <code>null</code>, it points to the actual location of the bug described in the <code>bug_info</code>. This field is needed when Infer points to a location that does not perfectly match the bug description (the <code>file</code>, <code>line</code>, and <code>column</code> specified in the <code>bug_info</code> section)
+       For <code>before-fix</code> example, it points to the buggy step in the trace. For <code>after-fix</code> examples, it's <code>null</code>, because there is no bug report for <code>after-fix</code> examples. Instead, <code>after-fix</code> examples were generated based on <code>before-fix</code> examples. Please see <a ref="https://github.com/IBM/D2A#sample-types" target="_blank">Sample Types</a> for details.
       </td>
     </tr>
     <!-- row -->
@@ -233,7 +233,7 @@ Each `pickle.gz` file contains compressed samples in JSON (e.g. [auto_labeler_0.
     <!-- row -->
     <tr>
       <td style="vertical-align:top"> <b>&#9475;</b> &#9504; <a href="samples/auto_labeler_0.json#L276" target="_blank">touched_by_commit</a> </td>
-      <td><code>true</code> if file changed in the after commit</td>
+      <td><code>true</code> if the function changed in the after commit</td>
     </tr>
     <!-- row -->
     <tr>
