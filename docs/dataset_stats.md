@@ -89,7 +89,7 @@ Each `pickle.gz` file contains compressed samples in JSON (e.g. [auto_labeler_0.
     <tr>
       <td style="vertical-align:top"> <a href="samples/auto_labeler_0.json#L15" target="_blank">adjusted_bug_loc</a> </td>
       <td>
-       For <code>before-fix</code> example, it points to the buggy step in the trace. For <code>after-fix</code> examples, it's <code>null</code>, because there is no bug report for <code>after-fix</code> examples. Instead, <code>after-fix</code> examples were generated based on <code>before-fix</code> examples. Please see <a ref="https://github.com/IBM/D2A#sample-types" target="_blank">Sample Types</a> for details.
+       For <code>before-fix</code> example, it points to the buggy step in the trace. For <code>after-fix</code> examples, it's <code>null</code>, because there is no bug report for <code>after-fix</code> examples. Instead, <code>after-fix</code> examples were generated based on <code>before-fix</code> examples. Please see <a href="https://github.com/IBM/D2A#sample-types" target="_blank">Sample Types</a> for details.
       </td>
     </tr>
     <!-- row -->
