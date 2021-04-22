@@ -1,0 +1,408 @@
+id,label,code
+4644,1,"static int decode_nal_units(H264Context *h, const uint8_t *buf, int buf_size)
+{
+    AVCodecContext *const avctx = h->avctx;
+    unsigned context_count = 0;
+    int nals_needed = 0; ///< number of NALs that need decoding before the next frame thread starts
+    int i, ret = 0;
+
+    h->max_contexts = h->slice_context_count;
+    if (!(avctx->flags2 & AV_CODEC_FLAG2_CHUNKS)) {
+        h->current_slice = 0;
+        if (!h->first_field)
+            h->cur_pic_ptr = NULL;
+        ff_h264_sei_uninit(&h->sei);
+    }
+
+    ret = ff_h2645_packet_split(&h->pkt, buf, buf_size, avctx, h->is_avc,
+                                h->nal_length_size, avctx->codec_id);
+    if (ret < 0) {
+        av_log(avctx, AV_LOG_ERROR,
+               ""Error splitting the input into NAL units.\n"");
+        return ret;
+    }
+
+    if (avctx->active_thread_type & FF_THREAD_FRAME)
+        nals_needed = get_last_needed_nal(h);
+
+    for (i = 0; i < h->pkt.nb_nals; i++) {
+        H2645NAL *nal = &h->pkt.nals[i];
+        H264SliceContext *sl = &h->slice_ctx[context_count];
+        int err;
+
+        if (avctx->skip_frame >= AVDISCARD_NONREF &&
+            nal->ref_idc == 0 && nal->type != NAL_SEI)
+            continue;
+
+again:
+        // FIXME these should stop being context-global variables
+        h->nal_ref_idc   = nal->ref_idc;
+        h->nal_unit_type = nal->type;
+
+        err = 0;
+        switch (nal->type) {
+        case NAL_IDR_SLICE:
+            if (nal->type != NAL_IDR_SLICE) {
+                av_log(h->avctx, AV_LOG_ERROR,
+                       ""Invalid mix of idr and non-idr slices\n"");
+                ret = -1;
+                goto end;
+            }
+            idr(h); // FIXME ensure we don't lose some frames if there is reordering
+        case NAL_SLICE:
+            sl->gb = nal->gb;
+
+            if ((err = ff_h264_decode_slice_header(h, sl)))
+                break;
+
+            if (h->sei.recovery_point.recovery_frame_cnt >= 0 && h->recovery_frame < 0) {
+                h->recovery_frame = (h->poc.frame_num + h->sei.recovery_point.recovery_frame_cnt) &
+                                    ((1 << h->ps.sps->log2_max_frame_num) - 1);
+            }
+
+            h->cur_pic_ptr->f->key_frame |=
+                (nal->type == NAL_IDR_SLICE) || (h->sei.recovery_point.recovery_frame_cnt >= 0);
+
+            if (nal->type == NAL_IDR_SLICE || h->recovery_frame == h->poc.frame_num) {
+                h->recovery_frame         = -1;
+                h->cur_pic_ptr->recovered = 1;
+            }
+            // If we have an IDR, all frames after it in decoded order are
+            // ""recovered"".
+            if (nal->type == NAL_IDR_SLICE)
+                h->frame_recovered |= FRAME_RECOVERED_IDR;
+            h->cur_pic_ptr->recovered |= !!(h->frame_recovered & FRAME_RECOVERED_IDR);
+
+            if (h->current_slice == 1) {
+                if (!(avctx->flags2 & AV_CODEC_FLAG2_CHUNKS))
+                    decode_postinit(h, i >= nals_needed);
+
+                if (h->avctx->hwaccel &&
+                    (ret = h->avctx->hwaccel->start_frame(h->avctx, NULL, 0)) < 0)
+                    return ret;
+            }
+
+            if (sl->redundant_pic_count == 0 &&
+                (avctx->skip_frame < AVDISCARD_NONREF || nal->ref_idc) &&
+                (avctx->skip_frame < AVDISCARD_BIDIR  ||
+                 sl->slice_type_nos != AV_PICTURE_TYPE_B) &&
+                (avctx->skip_frame < AVDISCARD_NONKEY ||
+                 h->cur_pic_ptr->f->key_frame) &&
+                avctx->skip_frame < AVDISCARD_ALL) {
+                if (avctx->hwaccel) {
+                    ret = avctx->hwaccel->decode_slice(avctx, nal->raw_data, nal->raw_size);
+                    if (ret < 0)
+                        return ret;
+                } else
+                    context_count++;
+            }
+            break;
+        case NAL_DPA:
+        case NAL_DPB:
+        case NAL_DPC:
+            avpriv_request_sample(avctx, ""data partitioning"");
+            ret = AVERROR(ENOSYS);
+            goto end;
+            break;
+        case NAL_SEI:
+            ret = ff_h264_sei_decode(&h->sei, &nal->gb, &h->ps, avctx);
+            if (ret < 0 && (h->avctx->err_recognition & AV_EF_EXPLODE))
+                goto end;
+            break;
+        case NAL_SPS:
+            ret = ff_h264_decode_seq_parameter_set(&nal->gb, avctx, &h->ps);
+            if (ret < 0 && (h->avctx->err_recognition & AV_EF_EXPLODE))
+                goto end;
+            break;
+        case NAL_PPS:
+            ret = ff_h264_decode_picture_parameter_set(&nal->gb, avctx, &h->ps,
+                                                       nal->size_bits);
+            if (ret < 0 && (h->avctx->err_recognition & AV_EF_EXPLODE))
+                goto end;
+            break;
+        case NAL_AUD:
+        case NAL_END_SEQUENCE:
+        case NAL_END_STREAM:
+        case NAL_FILLER_DATA:
+        case NAL_SPS_EXT:
+        case NAL_AUXILIARY_SLICE:
+            break;
+        case NAL_FF_IGNORE:
+            break;
+        default:
+            av_log(avctx, AV_LOG_DEBUG, ""Unknown NAL code: %d (%d bits)\n"",
+                   nal->type, nal->size_bits);
+        }
+
+        if (context_count == h->max_contexts) {
+            ret = ff_h264_execute_decode_slices(h, context_count);
+            if (ret < 0 && (h->avctx->err_recognition & AV_EF_EXPLODE))
+                goto end;
+            context_count = 0;
+        }
+
+        if (err < 0) {
+            av_log(h->avctx, AV_LOG_ERROR, ""decode_slice_header error\n"");
+            sl->ref_count[0] = sl->ref_count[1] = sl->list_count = 0;
+        } else if (err == 1) {
+            /* Slice could not be decoded in parallel mode, restart. */
+            sl               = &h->slice_ctx[0];
+            goto again;
+        }
+    }
+    if (context_count) {
+        ret = ff_h264_execute_decode_slices(h, context_count);
+        if (ret < 0 && (h->avctx->err_recognition & AV_EF_EXPLODE))
+            goto end;
+    }
+
+    ret = 0;
+end:
+    /* clean up */
+    if (h->cur_pic_ptr && !h->droppable) {
+        ff_thread_report_progress(&h->cur_pic_ptr->tf, INT_MAX,
+                                  h->picture_structure == PICT_BOTTOM_FIELD);
+    }
+
+    return (ret < 0) ? ret : buf_size;
+}"
+4645,1,"static OSSL_PARAM *param_template_to_param(PARAMS_TEMPLATE *tmpl, size_t *sz)
+{
+    size_t i;
+    void *buf;
+    OSSL_PARAM *param = NULL;
+    unsigned char *currbuf = NULL;
+
+    if (tmpl->totsz == 0)
+        return NULL;
+
+    /* Add some space for the end of OSSL_PARAM marker */
+    tmpl->totsz += sizeof(*param);
+
+    if (tmpl->ispublic)
+        buf = OPENSSL_zalloc(tmpl->totsz);
+    else
+        buf = OPENSSL_secure_zalloc(tmpl->totsz);
+    if (buf == NULL)
+        return NULL;
+    param = buf;
+
+    currbuf = (unsigned char *)buf + (sizeof(*param) * (tmpl->curr + 1));
+
+    for (i = 0; i < tmpl->curr; i++) {
+        if (!ossl_assert((currbuf - (unsigned char *)buf )
+                         + tmpl->params[i].bufsz <= tmpl->totsz))
+            goto err;
+        if (BN_bn2nativepad(tmpl->params[i].bnparam, currbuf,
+                            tmpl->params[i].bufsz) < 0)
+            goto err;
+        param[i] = OSSL_PARAM_construct_BN(tmpl->params[i].key, currbuf,
+                                           tmpl->params[i].bufsz);
+        currbuf += tmpl->params[i].bufsz;
+    }
+    param[i] = OSSL_PARAM_construct_end();
+
+    if (sz != NULL)
+        *sz = tmpl->totsz;
+    return param;
+
+ err:
+    if (tmpl->ispublic)
+        OPENSSL_free(param);
+    else
+        OPENSSL_clear_free(param, tmpl->totsz);
+    return NULL;
+}"
+4646,0,"static int internal_verify(X509_STORE_CTX *ctx)
+{
+    int ok = 0, n;
+    X509 *xs, *xi;
+    EVP_PKEY *pkey = NULL;
+    int (*cb) (int xok, X509_STORE_CTX *xctx);
+
+    cb = ctx->verify_cb;
+
+    n = sk_X509_num(ctx->chain) - 1;
+    ctx->error_depth = n;
+    xi = sk_X509_value(ctx->chain, n);
+
+    /*
+     * With DANE-verified bare public key TA signatures, it remains only to
+     * check the timestamps of the top certificate.  We report the issuer as
+     * NULL, since all we have is a bare key.
+     */
+    if (ctx->bare_ta_signed) {
+        xs = xi;
+        xi = NULL;
+        goto check_cert;
+    }
+
+    if (ctx->check_issued(ctx, xi, xi))
+        xs = xi;
+    else {
+        if (ctx->param->flags & X509_V_FLAG_PARTIAL_CHAIN) {
+            xs = xi;
+            goto check_cert;
+        }
+        if (n <= 0) {
+            ctx->error = X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE;
+            ctx->current_cert = xi;
+            ok = cb(0, ctx);
+            goto end;
+        } else {
+            n--;
+            ctx->error_depth = n;
+            xs = sk_X509_value(ctx->chain, n);
+        }
+    }
+
+    /*
+     * Do not clear ctx->error=0, it must be ""sticky"", only the user's callback
+     * is allowed to reset errors (at its own peril).
+     */
+    while (n >= 0) {
+        ctx->error_depth = n;
+
+        /*
+         * Skip signature check for self signed certificates unless
+         * explicitly asked for. It doesn't add any security and just wastes
+         * time.
+         */
+        if (xs != xi || (ctx->param->flags & X509_V_FLAG_CHECK_SS_SIGNATURE)) {
+            if ((pkey = X509_get0_pubkey(xi)) == NULL) {
+                ctx->error = X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY;
+                ctx->current_cert = xi;
+                ok = (*cb) (0, ctx);
+                if (!ok)
+                    goto end;
+            } else if (X509_verify(xs, pkey) <= 0) {
+                ctx->error = X509_V_ERR_CERT_SIGNATURE_FAILURE;
+                ctx->current_cert = xs;
+                ok = (*cb) (0, ctx);
+                if (!ok)
+                    goto end;
+            }
+        }
+
+ check_cert:
+        ok = x509_check_cert_time(ctx, xs, 0);
+        if (!ok)
+            goto end;
+
+        /* The last error (if any) is still in the error value */
+        ctx->current_issuer = xi;
+        ctx->current_cert = xs;
+        ok = (*cb) (1, ctx);
+        if (!ok)
+            goto end;
+
+        n--;
+        if (n >= 0) {
+            xi = xs;
+            xs = sk_X509_value(ctx->chain, n);
+        }
+    }
+    ok = 1;
+ end:
+    return ok;
+}"
+4647,0,"static int write_image_header(AVFormatContext *s)
+{
+    AVStream *st = s->streams[0];
+    AVCodecParameters *encctx = st->codecpar;
+    FITSContext *fitsctx = s->priv_data;
+    uint8_t buffer[80];
+    int bitpix, naxis, naxis3 = 1, bzero = 0, rgb = 0, lines_written = 0, lines_left;
+
+    switch (encctx->format) {
+        case AV_PIX_FMT_GRAY8:
+            bitpix = 8;
+            naxis = 2;
+            break;
+        case AV_PIX_FMT_GRAY16BE:
+            bitpix = 16;
+            naxis = 2;
+            bzero = 32768;
+            break;
+        case AV_PIX_FMT_GBRP:
+        case AV_PIX_FMT_GBRAP:
+            bitpix = 8;
+            naxis = 3;
+            rgb = 1;
+            if (encctx->format == AV_PIX_FMT_GBRP) {
+                naxis3 = 3;
+            } else {
+                naxis3 = 4;
+            }
+            break;
+        case AV_PIX_FMT_GBRP16BE:
+        case AV_PIX_FMT_GBRAP16BE:
+            bitpix = 16;
+            naxis = 3;
+            rgb = 1;
+            if (encctx->format == AV_PIX_FMT_GBRP16BE) {
+                naxis3 = 3;
+            } else {
+                naxis3 = 4;
+            }
+            bzero = 32768;
+            break;
+        default:
+            return AVERROR(EINVAL);
+    }
+
+    if (fitsctx->first_image) {
+        memcpy(buffer, ""SIMPLE  = "", 10);
+        memset(buffer + 10, ' ', 70);
+        buffer[29] = 'T';
+        avio_write(s->pb, buffer, sizeof(buffer));
+    } else {
+        memcpy(buffer, ""XTENSION= 'IMAGE   '"", 20);
+        memset(buffer + 20, ' ', 60);
+        avio_write(s->pb, buffer, sizeof(buffer));
+    }
+    lines_written++;
+
+    write_keyword_value(s, ""BITPIX"", bitpix, &lines_written);         // no of bits per pixel
+    write_keyword_value(s, ""NAXIS"", naxis, &lines_written);           // no of dimensions of image
+    write_keyword_value(s, ""NAXIS1"", encctx->width, &lines_written);   // first dimension i.e. width
+    write_keyword_value(s, ""NAXIS2"", encctx->height, &lines_written);  // second dimension i.e. height
+
+    if (rgb)
+        write_keyword_value(s, ""NAXIS3"", naxis3, &lines_written);     // third dimension to store RGBA planes
+
+    if (!fitsctx->first_image) {
+        write_keyword_value(s, ""PCOUNT"", 0, &lines_written);
+        write_keyword_value(s, ""GCOUNT"", 1, &lines_written);
+    } else {
+        fitsctx->first_image = 0;
+    }
+
+    /*
+     * Since FITS does not support unsigned 16 bit integers,
+     * BZERO = 32768 is used to store unsigned 16 bit integers as
+     * signed integers so that it can be read properly.
+     */
+    if (bitpix == 16)
+        write_keyword_value(s, ""BZERO"", bzero, &lines_written);
+
+    if (rgb) {
+        memcpy(buffer, ""CTYPE3  = 'RGB     '"", 20);
+        memset(buffer + 20, ' ', 60);
+        avio_write(s->pb, buffer, sizeof(buffer));
+        lines_written++;
+    }
+
+    memcpy(buffer, ""END"", 3);
+    memset(buffer + 3, ' ', 77);
+    avio_write(s->pb, buffer, sizeof(buffer));
+    lines_written++;
+
+    lines_left = ((lines_written + 35) / 36) * 36 - lines_written;
+    memset(buffer, ' ', 80);
+    while (lines_left > 0) {
+        avio_write(s->pb, buffer, sizeof(buffer));
+        lines_left--;
+    }
+    return 0;
+}"

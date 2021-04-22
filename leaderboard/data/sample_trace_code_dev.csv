@@ -1,0 +1,1045 @@
+id,label,trace,bug_url,bug_function,functions
+36760,1,"crypto/ec/ecp_smpl.c:1514: error: BUFFER_OVERRUN_L3
+  Offset added: [8, +oo] Size: [0, 536870848] by call to `BN_mod_sub_quick`.
+Showing all 20 steps of the trace
+
+
+crypto/ec/ecp_smpl.c:1499:10: Call
+1497.   
+1498.       BN_CTX_start(ctx);
+1499.       t0 = BN_CTX_get(ctx);
+                 ^
+1500.       t1 = BN_CTX_get(ctx);
+1501.       t2 = BN_CTX_get(ctx);
+
+crypto/bn/bn_ctx.c:229:5: Call
+  227.       }
+  228.       /* OK, make sure the returned bignum is ""zero"" */
+  229.       BN_zero(ret);
+             ^
+  230.       ctx->used++;
+  231.       CTXDBG_RET(ctx, ret);
+
+crypto/bn/bn_lib.c:366:15: Assignment
+    364.       a->neg = 0;
+    365.       a->d[0] = w;
+    366.       a->top = (w ? 1 : 0);
+                         ^
+    367.       a->flags &= ~BN_FLG_FIXED_TOP;
+    368.       bn_check_top(a);
+
+crypto/bn/bn_lib.c:366:5: Assignment
+    364.       a->neg = 0;
+    365.       a->d[0] = w;
+    366.       a->top = (w ? 1 : 0);
+               ^
+    367.       a->flags &= ~BN_FLG_FIXED_TOP;
+    368.       bn_check_top(a);
+
+crypto/ec/ecp_smpl.c:1514:13: Call
+1512.           || !group->meth->field_mul(group, t3, r->Z, s->X, ctx)
+1513.           || !group->meth->field_mul(group, t4, group->a, t1, ctx)
+1514.           || !BN_mod_sub_quick(t4, t0, t4, group->field)
+                    ^
+1515.           || !BN_mod_add_quick(t5, t3, t2, group->field)
+1516.           || !group->meth->field_sqr(group, t4, t4, ctx)
+
+crypto/bn/bn_mod.c:117:1: Parameter `*r->d`
+  115.    * less than m
+  116.    */
+  117. > int BN_mod_sub_quick(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+  118.                        const BIGNUM *m)
+  119.   {
+
+crypto/bn/bn_mod.c:120:10: Call
+  118.                        const BIGNUM *m)
+  119.   {
+  120.       if (!BN_sub(r, a, b))
+                  ^
+  121.           return 0;
+  122.       if (r->neg)
+
+crypto/bn/bn_add.c:45:1: Parameter `*r->d`
+    43.   
+    44.   /* signed sub of b from a. */
+    45. > int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)
+    46.   {
+    47.       int ret, r_neg, cmp_res;
+
+crypto/bn/bn_add.c:54:15: Call
+    52.       if (a->neg != b->neg) {
+    53.           r_neg = a->neg;
+    54.           ret = BN_uadd(r, a, b);
+                        ^
+    55.       } else {
+    56.           cmp_res = BN_ucmp(a, b);
+
+crypto/bn/bn_add.c:76:1: Parameter `*r->d`
+      74.   
+      75.   /* unsigned add of b to a, r can be equal to a or b. */
+      76. > int BN_uadd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)
+      77.   {
+      78.       int max, min, dif;
+
+crypto/bn/bn_add.c:96:9: Call
+      94.       dif = max - min;
+      95.   
+      96.       if (bn_wexpand(r, max + 1) == NULL)
+                    ^
+      97.           return 0;
+      98.   
+
+crypto/bn/bn_lib.c:948:1: Parameter `*a->d`
+        946.   }
+        947.   
+        948. > BIGNUM *bn_wexpand(BIGNUM *a, int words)
+        949.   {
+        950.       return (words <= a->dmax) ? a : bn_expand2(a, words);
+
+crypto/bn/bn_lib.c:950:37: Call
+        948.   BIGNUM *bn_wexpand(BIGNUM *a, int words)
+        949.   {
+        950.       return (words <= a->dmax) ? a : bn_expand2(a, words);
+                                                   ^
+        951.   }
+        952.   
+
+crypto/bn/bn_lib.c:245:1: Parameter `*b->d`
+          243.    */
+          244.   
+          245. > BIGNUM *bn_expand2(BIGNUM *b, int words)
+          246.   {
+          247.       if (words > b->dmax) {
+
+crypto/bn/bn_lib.c:248:23: Call
+          246.   {
+          247.       if (words > b->dmax) {
+          248.           BN_ULONG *a = bn_expand_internal(b, words);
+                                       ^
+          249.           if (!a)
+          250.               return NULL;
+
+crypto/bn/bn_lib.c:209:1: <Offset trace>
+207.   /* This is used by bn_expand2() */
+208.   /* The caller MUST check that words > b->dmax before calling this */
+209. > static BN_ULONG *bn_expand_internal(const BIGNUM *b, int words)
+210.   {
+211.       BN_ULONG *a = NULL;
+
+crypto/bn/bn_lib.c:209:1: Parameter `b->top`
+            207.   /* This is used by bn_expand2() */
+            208.   /* The caller MUST check that words > b->dmax before calling this */
+            209. > static BN_ULONG *bn_expand_internal(const BIGNUM *b, int words)
+            210.   {
+            211.       BN_ULONG *a = NULL;
+
+crypto/bn/bn_lib.c:209:1: <Length trace>
+207.   /* This is used by bn_expand2() */
+208.   /* The caller MUST check that words > b->dmax before calling this */
+209. > static BN_ULONG *bn_expand_internal(const BIGNUM *b, int words)
+210.   {
+211.       BN_ULONG *a = NULL;
+
+crypto/bn/bn_lib.c:209:1: Parameter `*b->d`
+            207.   /* This is used by bn_expand2() */
+            208.   /* The caller MUST check that words > b->dmax before calling this */
+            209. > static BN_ULONG *bn_expand_internal(const BIGNUM *b, int words)
+            210.   {
+            211.       BN_ULONG *a = NULL;
+
+crypto/bn/bn_lib.c:232:9: Array access: Offset added: [8, +oo] Size: [0, 536870848] by call to `BN_mod_sub_quick` 
+            230.       assert(b->top <= words);
+            231.       if (b->top > 0)
+            232.           memcpy(a, b->d, sizeof(*a) * b->top);
+                           ^
+            233.   
+            234.       return a;
+",https://github.com/openssl/openssl/blob/e97be718044fd9a296f05f13e3ad91427b212b7c/crypto/bn/bn_lib.c/#L232,"static BN_ULONG *bn_expand_internal(const BIGNUM *b, int words)
+{
+    BN_ULONG *a = NULL;
+    if (words > (INT_MAX / (4 * BN_BITS2))) {
+        BNerr(BN_F_BN_EXPAND_INTERNAL, BN_R_BIGNUM_TOO_LONG);
+        return NULL;
+    }
+    if (BN_get_flags(b, BN_FLG_STATIC_DATA)) {
+        BNerr(BN_F_BN_EXPAND_INTERNAL, BN_R_EXPAND_ON_STATIC_BIGNUM_DATA);
+        return NULL;
+    }
+    if (BN_get_flags(b, BN_FLG_SECURE))
+        a = OPENSSL_secure_zalloc(words * sizeof(*a));
+    else
+        a = OPENSSL_zalloc(words * sizeof(*a));
+    if (a == NULL) {
+        BNerr(BN_F_BN_EXPAND_INTERNAL, ERR_R_MALLOC_FAILURE);
+        return NULL;
+    }
+    assert(b->top <= words);
+    if (b->top > 0)
+        memcpy(a, b->d, sizeof(*a) * b->top);
+    return a;
+}","['int ec_GFp_simple_ladder_step(const EC_GROUP *group,\n                              EC_POINT *r, EC_POINT *s,\n                              EC_POINT *p, BN_CTX *ctx)\n{\n    int ret = 0;\n    BIGNUM *t0, *t1, *t2, *t3, *t4, *t5, *t6, *t7 = NULL;\n    BN_CTX_start(ctx);\n    t0 = BN_CTX_get(ctx);\n    t1 = BN_CTX_get(ctx);\n    t2 = BN_CTX_get(ctx);\n    t3 = BN_CTX_get(ctx);\n    t4 = BN_CTX_get(ctx);\n    t5 = BN_CTX_get(ctx);\n    t6 = BN_CTX_get(ctx);\n    t7 = BN_CTX_get(ctx);\n    if (t7 == NULL\n        || !group->meth->field_mul(group, t0, r->X, s->X, ctx)\n        || !group->meth->field_mul(group, t1, r->Z, s->Z, ctx)\n        || !group->meth->field_mul(group, t2, r->X, s->Z, ctx)\n        || !group->meth->field_mul(group, t3, r->Z, s->X, ctx)\n        || !group->meth->field_mul(group, t4, group->a, t1, ctx)\n        || !BN_mod_sub_quick(t4, t0, t4, group->field)\n        || !BN_mod_add_quick(t5, t3, t2, group->field)\n        || !group->meth->field_sqr(group, t4, t4, ctx)\n        || !group->meth->field_mul(group, t5, t1, t5, ctx)\n        || !BN_mod_lshift_quick(t0, group->b, 2, group->field)\n        || !group->meth->field_mul(group, t5, t0, t5, ctx)\n        || !BN_mod_sub_quick(t5, t4, t5, group->field)\n        || !group->meth->field_mul(group, s->X, t5, p->Z, ctx)\n        || !BN_mod_sub_quick(t3, t2, t3, group->field)\n        || !group->meth->field_sqr(group, t3, t3, ctx)\n        || !group->meth->field_mul(group, s->Z, t3, p->X, ctx)\n        || !group->meth->field_sqr(group, t2, r->X, ctx)\n        || !group->meth->field_sqr(group, t4, r->Z, ctx)\n        || !group->meth->field_mul(group, t1, t4, group->a, ctx)\n        || !BN_mod_add_quick(t6, r->X, r->Z, group->field)\n        || !group->meth->field_sqr(group, t6, t6, ctx)\n        || !BN_mod_sub_quick(t6, t6, t2, group->field)\n        || !BN_mod_sub_quick(t6, t6, t4, group->field)\n        || !BN_mod_sub_quick(t7, t2, t1, group->field)\n        || !group->meth->field_sqr(group, t7, t7, ctx)\n        || !group->meth->field_mul(group, t5, t4, t6, ctx)\n        || !group->meth->field_mul(group, t5, t0, t5, ctx)\n        || !BN_mod_sub_quick(r->X, t7, t5, group->field)\n        || !BN_mod_add_quick(t2, t2, t1, group->field)\n        || !group->meth->field_sqr(group, t5, t4, ctx)\n        || !group->meth->field_mul(group, t5, t5, t0, ctx)\n        || !group->meth->field_mul(group, t6, t6, t2, ctx)\n        || !BN_mod_lshift1_quick(t6, t6, group->field)\n        || !BN_mod_add_quick(r->Z, t5, t6, group->field))\n        goto err;\n    ret = 1;\n err:\n    BN_CTX_end(ctx);\n    return ret;\n}', 'BIGNUM *BN_CTX_get(BN_CTX *ctx)\n{\n    BIGNUM *ret;\n    CTXDBG_ENTRY(""BN_CTX_get"", ctx);\n    if (ctx->err_stack || ctx->too_many)\n        return NULL;\n    if ((ret = BN_POOL_get(&ctx->pool, ctx->flags)) == NULL) {\n        ctx->too_many = 1;\n        BNerr(BN_F_BN_CTX_GET, BN_R_TOO_MANY_TEMPORARY_VARIABLES);\n        return NULL;\n    }\n    BN_zero(ret);\n    ctx->used++;\n    CTXDBG_RET(ctx, ret);\n    return ret;\n}', 'int BN_set_word(BIGNUM *a, BN_ULONG w)\n{\n    bn_check_top(a);\n    if (bn_expand(a, (int)sizeof(BN_ULONG) * 8) == NULL)\n        return 0;\n    a->neg = 0;\n    a->d[0] = w;\n    a->top = (w ? 1 : 0);\n    a->flags &= ~BN_FLG_FIXED_TOP;\n    bn_check_top(a);\n    return 1;\n}', 'int BN_mod_sub_quick(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,\n                     const BIGNUM *m)\n{\n    if (!BN_sub(r, a, b))\n        return 0;\n    if (r->neg)\n        return BN_add(r, r, m);\n    return 1;\n}', 'int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)\n{\n    int ret, r_neg, cmp_res;\n    bn_check_top(a);\n    bn_check_top(b);\n    if (a->neg != b->neg) {\n        r_neg = a->neg;\n        ret = BN_uadd(r, a, b);\n    } else {\n        cmp_res = BN_ucmp(a, b);\n        if (cmp_res > 0) {\n            r_neg = a->neg;\n            ret = BN_usub(r, a, b);\n        } else if (cmp_res < 0) {\n            r_neg = !b->neg;\n            ret = BN_usub(r, b, a);\n        } else {\n            r_neg = 0;\n            BN_zero(r);\n            ret = 1;\n        }\n    }\n    r->neg = r_neg;\n    bn_check_top(r);\n    return ret;\n}', 'int BN_uadd(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)\n{\n    int max, min, dif;\n    const BN_ULONG *ap, *bp;\n    BN_ULONG *rp, carry, t1, t2;\n    bn_check_top(a);\n    bn_check_top(b);\n    if (a->top < b->top) {\n        const BIGNUM *tmp;\n        tmp = a;\n        a = b;\n        b = tmp;\n    }\n    max = a->top;\n    min = b->top;\n    dif = max - min;\n    if (bn_wexpand(r, max + 1) == NULL)\n        return 0;\n    r->top = max;\n    ap = a->d;\n    bp = b->d;\n    rp = r->d;\n    carry = bn_add_words(rp, ap, bp, min);\n    rp += min;\n    ap += min;\n    while (dif) {\n        dif--;\n        t1 = *(ap++);\n        t2 = (t1 + carry) & BN_MASK2;\n        *(rp++) = t2;\n        carry &= (t2 == 0);\n    }\n    *rp = carry;\n    r->top += carry;\n    r->neg = 0;\n    bn_check_top(r);\n    return 1;\n}', 'BIGNUM *bn_wexpand(BIGNUM *a, int words)\n{\n    return (words <= a->dmax) ? a : bn_expand2(a, words);\n}', 'BIGNUM *bn_expand2(BIGNUM *b, int words)\n{\n    if (words > b->dmax) {\n        BN_ULONG *a = bn_expand_internal(b, words);\n        if (!a)\n            return NULL;\n        if (b->d) {\n            OPENSSL_cleanse(b->d, b->dmax * sizeof(b->d[0]));\n            bn_free_d(b);\n        }\n        b->d = a;\n        b->dmax = words;\n    }\n    return b;\n}', 'static BN_ULONG *bn_expand_internal(const BIGNUM *b, int words)\n{\n    BN_ULONG *a = NULL;\n    if (words > (INT_MAX / (4 * BN_BITS2))) {\n        BNerr(BN_F_BN_EXPAND_INTERNAL, BN_R_BIGNUM_TOO_LONG);\n        return NULL;\n    }\n    if (BN_get_flags(b, BN_FLG_STATIC_DATA)) {\n        BNerr(BN_F_BN_EXPAND_INTERNAL, BN_R_EXPAND_ON_STATIC_BIGNUM_DATA);\n        return NULL;\n    }\n    if (BN_get_flags(b, BN_FLG_SECURE))\n        a = OPENSSL_secure_zalloc(words * sizeof(*a));\n    else\n        a = OPENSSL_zalloc(words * sizeof(*a));\n    if (a == NULL) {\n        BNerr(BN_F_BN_EXPAND_INTERNAL, ERR_R_MALLOC_FAILURE);\n        return NULL;\n    }\n    assert(b->top <= words);\n    if (b->top > 0)\n        memcpy(a, b->d, sizeof(*a) * b->top);\n    return a;\n}']"
+36790,1,"apps/dhparam.c:312: error: NULL_DEREFERENCE
+  pointer `infile` last assigned on line 170 could be null and is dereferenced by call to `bio_open_default()` at line 312, column 14.
+Showing all 53 steps of the trace
+
+
+apps/dhparam.c:166:1: start of procedure dhparam_main()
+164.   };
+165.   
+166. > int dhparam_main(int argc, char **argv)
+167.   {
+168.       BIO *in = NULL, *out = NULL;
+
+apps/dhparam.c:168:5: 
+166.   int dhparam_main(int argc, char **argv)
+167.   {
+168. >     BIO *in = NULL, *out = NULL;
+169.       DH *dh = NULL;
+170.       char *infile = NULL, *outfile = NULL, *prog, *inrand = NULL;
+
+apps/dhparam.c:169:5: 
+167.   {
+168.       BIO *in = NULL, *out = NULL;
+169. >     DH *dh = NULL;
+170.       char *infile = NULL, *outfile = NULL, *prog, *inrand = NULL;
+171.       int dsaparam = 0, i, text = 0, C = 0, ret = 1, num = 0, g = 0;
+
+apps/dhparam.c:170:5: 
+168.       BIO *in = NULL, *out = NULL;
+169.       DH *dh = NULL;
+170. >     char *infile = NULL, *outfile = NULL, *prog, *inrand = NULL;
+171.       int dsaparam = 0, i, text = 0, C = 0, ret = 1, num = 0, g = 0;
+172.       int informat = FORMAT_PEM, outformat = FORMAT_PEM, check = 0, noout = 0;
+
+apps/dhparam.c:171:5: 
+169.       DH *dh = NULL;
+170.       char *infile = NULL, *outfile = NULL, *prog, *inrand = NULL;
+171. >     int dsaparam = 0, i, text = 0, C = 0, ret = 1, num = 0, g = 0;
+172.       int informat = FORMAT_PEM, outformat = FORMAT_PEM, check = 0, noout = 0;
+173.       OPTION_CHOICE o;
+
+apps/dhparam.c:172:5: 
+170.       char *infile = NULL, *outfile = NULL, *prog, *inrand = NULL;
+171.       int dsaparam = 0, i, text = 0, C = 0, ret = 1, num = 0, g = 0;
+172. >     int informat = FORMAT_PEM, outformat = FORMAT_PEM, check = 0, noout = 0;
+173.       OPTION_CHOICE o;
+174.   
+
+apps/dhparam.c:175:5: Skipping opt_init(): empty list of specs
+173.       OPTION_CHOICE o;
+174.   
+175.       prog = opt_init(argc, argv, dhparam_options);
+           ^
+176.       while ((o = opt_next()) != OPT_EOF) {
+177.           switch (o) {
+
+apps/dhparam.c:176:12: Loop condition is false. Leaving loop
+174.   
+175.       prog = opt_init(argc, argv, dhparam_options);
+176.       while ((o = opt_next()) != OPT_EOF) {
+                  ^
+177.           switch (o) {
+178.           case OPT_EOF:
+
+apps/dhparam.c:230:5: 
+228.           }
+229.       }
+230. >     argc = opt_num_rest();
+231.       argv = opt_rest();
+232.   
+
+apps/opt.c:717:1: start of procedure opt_num_rest()
+  715.   
+  716.   /* How many items in remaining args? */
+  717. > int opt_num_rest(void)
+  718.   {
+  719.       int i = 0;
+
+apps/opt.c:719:5: 
+  717.   int opt_num_rest(void)
+  718.   {
+  719. >     int i = 0;
+  720.       char **pp;
+  721.   
+
+apps/opt.c:722:10: 
+  720.       char **pp;
+  721.   
+  722. >     for (pp = opt_rest(); *pp; pp++, i++)
+  723.           continue;
+  724.       return i;
+
+apps/opt.c:711:1: start of procedure opt_rest()
+    709.   
+    710.   /* Return the rest of the arguments after parsing flags. */
+    711. > char **opt_rest(void)
+    712.   {
+    713.       return &argv[opt_index];
+
+apps/opt.c:713:5: 
+    711.   char **opt_rest(void)
+    712.   {
+    713. >     return &argv[opt_index];
+    714.   }
+    715.   
+
+apps/opt.c:714:1: return from a call to opt_rest
+    712.   {
+    713.       return &argv[opt_index];
+    714. > }
+    715.   
+    716.   /* How many items in remaining args? */
+
+apps/opt.c:722:27: Loop condition is false. Leaving loop
+  720.       char **pp;
+  721.   
+  722.       for (pp = opt_rest(); *pp; pp++, i++)
+                                   ^
+  723.           continue;
+  724.       return i;
+
+apps/opt.c:724:5: 
+  722.       for (pp = opt_rest(); *pp; pp++, i++)
+  723.           continue;
+  724. >     return i;
+  725.   }
+  726.   
+
+apps/opt.c:725:1: return from a call to opt_num_rest
+  723.           continue;
+  724.       return i;
+  725. > }
+  726.   
+  727.   /* Return a string describing the parameter type. */
+
+apps/dhparam.c:231:5: 
+229.       }
+230.       argc = opt_num_rest();
+231. >     argv = opt_rest();
+232.   
+233.       if (!app_load_modules(NULL))
+
+apps/opt.c:711:1: start of procedure opt_rest()
+  709.   
+  710.   /* Return the rest of the arguments after parsing flags. */
+  711. > char **opt_rest(void)
+  712.   {
+  713.       return &argv[opt_index];
+
+apps/opt.c:713:5: 
+  711.   char **opt_rest(void)
+  712.   {
+  713. >     return &argv[opt_index];
+  714.   }
+  715.   
+
+apps/opt.c:714:1: return from a call to opt_rest
+  712.   {
+  713.       return &argv[opt_index];
+  714. > }
+  715.   
+  716.   /* How many items in remaining args? */
+
+apps/dhparam.c:233:10: 
+231.       argv = opt_rest();
+232.   
+233. >     if (!app_load_modules(NULL))
+234.           goto end;
+235.   
+
+apps/apps.c:539:1: start of procedure app_load_modules()
+  537.   }
+  538.   
+  539. > int app_load_modules(const CONF *config)
+  540.   {
+  541.       CONF *to_free = NULL;
+
+apps/apps.c:541:5: 
+  539.   int app_load_modules(const CONF *config)
+  540.   {
+  541. >     CONF *to_free = NULL;
+  542.   
+  543.       if (config == NULL)
+
+apps/apps.c:543:9: Taking true branch
+  541.       CONF *to_free = NULL;
+  542.   
+  543.       if (config == NULL)
+                 ^
+  544.   	config = to_free = app_load_config_quiet(default_config_file);
+  545.       if (config == NULL)
+
+apps/apps.c:544:2: Skipping app_load_config_quiet(): empty list of specs
+  542.   
+  543.       if (config == NULL)
+  544.   	config = to_free = app_load_config_quiet(default_config_file);
+          ^
+  545.       if (config == NULL)
+  546.   	return 1;
+
+apps/apps.c:545:9: Taking true branch
+  543.       if (config == NULL)
+  544.   	config = to_free = app_load_config_quiet(default_config_file);
+  545.       if (config == NULL)
+                 ^
+  546.   	return 1;
+  547.   
+
+apps/apps.c:546:2: 
+  544.   	config = to_free = app_load_config_quiet(default_config_file);
+  545.       if (config == NULL)
+  546. > 	return 1;
+  547.   
+  548.       if (CONF_modules_load(config, NULL, 0) <= 0) {
+
+apps/apps.c:556:1: return from a call to app_load_modules
+  554.       NCONF_free(to_free);
+  555.       return 1;
+  556. > }
+  557.   
+  558.   int add_oid_section(CONF *conf)
+
+apps/dhparam.c:233:10: Taking false branch
+231.       argv = opt_rest();
+232.   
+233.       if (!app_load_modules(NULL))
+                ^
+234.           goto end;
+235.   
+
+apps/dhparam.c:236:9: Taking false branch
+234.           goto end;
+235.   
+236.       if (argv[0] && (!opt_int(argv[0], &num) || num <= 0))
+               ^
+237.           goto end;
+238.   
+
+apps/dhparam.c:239:9: Taking false branch
+237.           goto end;
+238.   
+239.       if (g && !num)
+               ^
+240.           num = DEFBITS;
+241.   
+
+apps/dhparam.c:243:9: Taking false branch
+241.   
+242.   # ifndef OPENSSL_NO_DSA
+243.       if (dsaparam && g) {
+               ^
+244.           BIO_printf(bio_err,
+245.                      ""generator may not be chosen for DSA parameters\n"");
+
+apps/dhparam.c:250:9: Taking false branch
+248.   # endif
+249.       /* DH parameters */
+250.       if (num && !g)
+               ^
+251.           g = 2;
+252.   
+
+apps/dhparam.c:253:9: Taking false branch
+251.           g = 2;
+252.   
+253.       if (num) {
+               ^
+254.   
+255.           BN_GENCB *cb;
+
+apps/dhparam.c:312:39: Condition is false
+310.       } else {
+311.   
+312.           in = bio_open_default(infile, RB(informat));
+                                             ^
+313.           if (in == NULL)
+314.               goto end;
+
+apps/dhparam.c:312:9: 
+310.       } else {
+311.   
+312. >         in = bio_open_default(infile, RB(informat));
+313.           if (in == NULL)
+314.               goto end;
+
+apps/openssl.c:387:1: start of procedure bio_open_default()
+  385.   }
+  386.   
+  387. > BIO *bio_open_default(const char *filename, const char *mode)
+  388.   {
+  389.       return bio_open_default_(filename, mode, 0);
+
+apps/openssl.c:389:5: 
+  387.   BIO *bio_open_default(const char *filename, const char *mode)
+  388.   {
+  389. >     return bio_open_default_(filename, mode, 0);
+  390.   }
+  391.   
+
+apps/openssl.c:355:1: start of procedure bio_open_default_()
+    353.   }
+    354.   
+    355. > static BIO *bio_open_default_(const char *filename, const char *mode, int quiet)
+    356.   {
+    357.       BIO *ret;
+
+apps/openssl.c:359:9: Taking false branch
+    357.       BIO *ret;
+    358.   
+    359.       if (filename == NULL || strcmp(filename, ""-"") == 0) {
+                   ^
+    360.           ret = *mode == 'r' ? dup_bio_in() : dup_bio_out();
+    361.           if (quiet) {
+
+apps/openssl.c:359:29: Taking true branch
+    357.       BIO *ret;
+    358.   
+    359.       if (filename == NULL || strcmp(filename, ""-"") == 0) {
+                                       ^
+    360.           ret = *mode == 'r' ? dup_bio_in() : dup_bio_out();
+    361.           if (quiet) {
+
+apps/openssl.c:360:15: Condition is true
+    358.   
+    359.       if (filename == NULL || strcmp(filename, ""-"") == 0) {
+    360.           ret = *mode == 'r' ? dup_bio_in() : dup_bio_out();
+                         ^
+    361.           if (quiet) {
+    362.               ERR_clear_error();
+
+apps/openssl.c:283:1: start of procedure dup_bio_in()
+      281.   }
+      282.   
+      283. > BIO *dup_bio_in(void)
+      284.   {
+      285.       return BIO_new_fp(stdin, BIO_NOCLOSE | BIO_FP_TEXT);
+
+apps/openssl.c:285:5: Skipping BIO_new_fp(): empty list of specs
+      283.   BIO *dup_bio_in(void)
+      284.   {
+      285.       return BIO_new_fp(stdin, BIO_NOCLOSE | BIO_FP_TEXT);
+                 ^
+      286.   }
+      287.   
+
+apps/openssl.c:286:1: return from a call to dup_bio_in
+      284.   {
+      285.       return BIO_new_fp(stdin, BIO_NOCLOSE | BIO_FP_TEXT);
+      286. > }
+      287.   
+      288.   BIO *dup_bio_out(void)
+
+apps/openssl.c:360:9: 
+    358.   
+    359.       if (filename == NULL || strcmp(filename, ""-"") == 0) {
+    360. >         ret = *mode == 'r' ? dup_bio_in() : dup_bio_out();
+    361.           if (quiet) {
+    362.               ERR_clear_error();
+
+apps/openssl.c:361:13: Taking false branch
+    359.       if (filename == NULL || strcmp(filename, ""-"") == 0) {
+    360.           ret = *mode == 'r' ? dup_bio_in() : dup_bio_out();
+    361.           if (quiet) {
+                       ^
+    362.               ERR_clear_error();
+    363.               return ret;
+
+apps/openssl.c:365:13: Taking true branch
+    363.               return ret;
+    364.           }
+    365.           if (ret != NULL)
+                       ^
+    366.               return ret;
+    367.           BIO_printf(bio_err,
+
+apps/openssl.c:366:13: 
+    364.           }
+    365.           if (ret != NULL)
+    366. >             return ret;
+    367.           BIO_printf(bio_err,
+    368.                      ""Can't open %s, %s\n"",
+
+apps/openssl.c:385:1: return from a call to bio_open_default_
+    383.       ERR_print_errors(bio_err);
+    384.       return NULL;
+    385. > }
+    386.   
+    387.   BIO *bio_open_default(const char *filename, const char *mode)
+
+apps/openssl.c:390:1: return from a call to bio_open_default
+  388.   {
+  389.       return bio_open_default_(filename, mode, 0);
+  390. > }
+  391.   
+  392.   BIO *bio_open_default_quiet(const char *filename, const char *mode)
+",https://github.com/openssl/openssl/blob/2519b4e18101a7e987dad842084cd1da5da5c191/apps/dhparam.c/#L312,"int dhparam_main(int argc, char **argv)
+{
+    BIO *in = NULL, *out = NULL;
+    DH *dh = NULL;
+    char *infile = NULL, *outfile = NULL, *prog, *inrand = NULL;
+    int dsaparam = 0, i, text = 0, C = 0, ret = 1, num = 0, g = 0;
+    int informat = FORMAT_PEM, outformat = FORMAT_PEM, check = 0, noout = 0;
+    OPTION_CHOICE o;
+    prog = opt_init(argc, argv, dhparam_options);
+    while ((o = opt_next()) != OPT_EOF) {
+        switch (o) {
+        case OPT_EOF:
+        case OPT_ERR:
+ opthelp:
+            BIO_printf(bio_err, ""%s: Use -help for summary.\n"", prog);
+            goto end;
+        case OPT_HELP:
+            opt_help(dhparam_options);
+            ret = 0;
+            goto end;
+        case OPT_INFORM:
+            if (!opt_format(opt_arg(), OPT_FMT_PEMDER, &informat))
+                goto opthelp;
+            break;
+        case OPT_OUTFORM:
+            if (!opt_format(opt_arg(), OPT_FMT_PEMDER, &outformat))
+                goto opthelp;
+            break;
+        case OPT_IN:
+            infile = opt_arg();
+            break;
+        case OPT_OUT:
+            outfile = opt_arg();
+            break;
+        case OPT_ENGINE:
+            (void)setup_engine(opt_arg(), 0);
+            break;
+        case OPT_CHECK:
+            check = 1;
+            break;
+        case OPT_TEXT:
+            text = 1;
+            break;
+        case OPT_DSAPARAM:
+            dsaparam = 1;
+            break;
+        case OPT_C:
+            C = 1;
+            break;
+        case OPT_2:
+            g = 2;
+            break;
+        case OPT_5:
+            g = 5;
+            break;
+        case OPT_NOOUT:
+            noout = 1;
+            break;
+        case OPT_RAND:
+            inrand = opt_arg();
+            break;
+        }
+    }
+    argc = opt_num_rest();
+    argv = opt_rest();
+    if (!app_load_modules(NULL))
+        goto end;
+    if (argv[0] && (!opt_int(argv[0], &num) || num <= 0))
+        goto end;
+    if (g && !num)
+        num = DEFBITS;
+# ifndef OPENSSL_NO_DSA
+    if (dsaparam && g) {
+        BIO_printf(bio_err,
+                   ""generator may not be chosen for DSA parameters\n"");
+        goto end;
+    }
+# endif
+    if (num && !g)
+        g = 2;
+    if (num) {
+        BN_GENCB *cb;
+        cb = BN_GENCB_new();
+        if (!cb) {
+            ERR_print_errors(bio_err);
+            goto end;
+        }
+        BN_GENCB_set(cb, dh_cb, bio_err);
+        if (!app_RAND_load_file(NULL, 1) && inrand == NULL) {
+            BIO_printf(bio_err,
+                       ""warning, not much extra random data, consider using the -rand option\n"");
+        }
+        if (inrand != NULL)
+            BIO_printf(bio_err, ""%ld semi-random bytes loaded\n"",
+                       app_RAND_load_files(inrand));
+# ifndef OPENSSL_NO_DSA
+        if (dsaparam) {
+            DSA *dsa = DSA_new();
+            BIO_printf(bio_err,
+                       ""Generating DSA parameters, %d bit long prime\n"", num);
+            if (!dsa
+                || !DSA_generate_parameters_ex(dsa, num, NULL, 0, NULL, NULL,
+                                               cb)) {
+                DSA_free(dsa);
+                BN_GENCB_free(cb);
+                ERR_print_errors(bio_err);
+                goto end;
+            }
+            dh = DSA_dup_DH(dsa);
+            DSA_free(dsa);
+            if (dh == NULL) {
+                BN_GENCB_free(cb);
+                ERR_print_errors(bio_err);
+                goto end;
+            }
+        } else
+# endif
+        {
+            dh = DH_new();
+            BIO_printf(bio_err,
+                       ""Generating DH parameters, %d bit long safe prime, generator %d\n"",
+                       num, g);
+            BIO_printf(bio_err, ""This is going to take a long time\n"");
+            if (!dh || !DH_generate_parameters_ex(dh, num, g, cb)) {
+                BN_GENCB_free(cb);
+                ERR_print_errors(bio_err);
+                goto end;
+            }
+        }
+        BN_GENCB_free(cb);
+        app_RAND_write_file(NULL);
+    } else {
+        in = bio_open_default(infile, RB(informat));
+        if (in == NULL)
+            goto end;
+# ifndef OPENSSL_NO_DSA
+        if (dsaparam) {
+            DSA *dsa;
+            if (informat == FORMAT_ASN1)
+                dsa = d2i_DSAparams_bio(in, NULL);
+            else
+                dsa = PEM_read_bio_DSAparams(in, NULL, NULL, NULL);
+            if (dsa == NULL) {
+                BIO_printf(bio_err, ""unable to load DSA parameters\n"");
+                ERR_print_errors(bio_err);
+                goto end;
+            }
+            dh = DSA_dup_DH(dsa);
+            DSA_free(dsa);
+            if (dh == NULL) {
+                ERR_print_errors(bio_err);
+                goto end;
+            }
+        } else
+# endif
+        {
+            if (informat == FORMAT_ASN1)
+                dh = d2i_DHparams_bio(in, NULL);
+            else
+                dh = PEM_read_bio_DHparams(in, NULL, NULL, NULL);
+            if (dh == NULL) {
+                BIO_printf(bio_err, ""unable to load DH parameters\n"");
+                ERR_print_errors(bio_err);
+                goto end;
+            }
+        }
+    }
+    out = bio_open_default(outfile, ""w"");
+    if (out == NULL)
+        goto end;
+    if (text) {
+        DHparams_print(out, dh);
+    }
+    if (check) {
+        if (!DH_check(dh, &i)) {
+            ERR_print_errors(bio_err);
+            goto end;
+        }
+        if (i & DH_CHECK_P_NOT_PRIME)
+            printf(""p value is not prime\n"");
+        if (i & DH_CHECK_P_NOT_SAFE_PRIME)
+            printf(""p value is not a safe prime\n"");
+        if (i & DH_UNABLE_TO_CHECK_GENERATOR)
+            printf(""unable to check the generator value\n"");
+        if (i & DH_NOT_SUITABLE_GENERATOR)
+            printf(""the g value is not a generator\n"");
+        if (i == 0)
+            printf(""DH parameters appear to be ok.\n"");
+    }
+    if (C) {
+        unsigned char *data;
+        int len, bits;
+        len = BN_num_bytes(dh->p);
+        bits = BN_num_bits(dh->p);
+        data = app_malloc(len, ""print a BN"");
+        BIO_printf(out, ""#ifndef HEADER_DH_H\n""
+                        ""# include <openssl/dh.h>\n""
+                        ""#endif\n""
+                        ""\n"");
+        BIO_printf(out, ""DH *get_dh%d()\n{\n"", bits);
+        print_bignum_var(out, dh->p, ""dhp"", bits, data);
+        print_bignum_var(out, dh->g, ""dhg"", bits, data);
+        BIO_printf(out, ""    DH *dh = DN_new();\n""
+                        ""\n""
+                        ""    if (dh == NULL)\n""
+                        ""        return NULL;\n"");
+        BIO_printf(out, ""    dh->p = BN_bin2bn(dhp_%d, sizeof (dhp_%d), NULL);\n"",
+               bits, bits);
+        BIO_printf(out, ""    dh->g = BN_bin2bn(dhg_%d, sizeof (dhg_%d), NULL);\n"",
+               bits, bits);
+        BIO_printf(out, ""    if (!dh->p || !dh->g) {\n""
+                        ""        DH_free(dh);\n""
+                        ""        return NULL;\n""
+                        ""    }\n"");
+        if (dh->length)
+            BIO_printf(out,
+                        ""    dh->length = %ld;\n"", dh->length);
+        BIO_printf(out, ""    return dh;\n}\n"");
+        OPENSSL_free(data);
+    }
+    if (!noout) {
+        if (outformat == FORMAT_ASN1)
+            i = i2d_DHparams_bio(out, dh);
+        else if (dh->q)
+            i = PEM_write_bio_DHxparams(out, dh);
+        else
+            i = PEM_write_bio_DHparams(out, dh);
+        if (!i) {
+            BIO_printf(bio_err, ""unable to write DH parameters\n"");
+            ERR_print_errors(bio_err);
+            goto end;
+        }
+    }
+    ret = 0;
+ end:
+    BIO_free(in);
+    BIO_free_all(out);
+    DH_free(dh);
+    return (ret);
+}","['int dhparam_main(int argc, char **argv)\n{\n    BIO *in = NULL, *out = NULL;\n    DH *dh = NULL;\n    char *infile = NULL, *outfile = NULL, *prog, *inrand = NULL;\n    int dsaparam = 0, i, text = 0, C = 0, ret = 1, num = 0, g = 0;\n    int informat = FORMAT_PEM, outformat = FORMAT_PEM, check = 0, noout = 0;\n    OPTION_CHOICE o;\n    prog = opt_init(argc, argv, dhparam_options);\n    while ((o = opt_next()) != OPT_EOF) {\n        switch (o) {\n        case OPT_EOF:\n        case OPT_ERR:\n opthelp:\n            BIO_printf(bio_err, ""%s: Use -help for summary.\\n"", prog);\n            goto end;\n        case OPT_HELP:\n            opt_help(dhparam_options);\n            ret = 0;\n            goto end;\n        case OPT_INFORM:\n            if (!opt_format(opt_arg(), OPT_FMT_PEMDER, &informat))\n                goto opthelp;\n            break;\n        case OPT_OUTFORM:\n            if (!opt_format(opt_arg(), OPT_FMT_PEMDER, &outformat))\n                goto opthelp;\n            break;\n        case OPT_IN:\n            infile = opt_arg();\n            break;\n        case OPT_OUT:\n            outfile = opt_arg();\n            break;\n        case OPT_ENGINE:\n            (void)setup_engine(opt_arg(), 0);\n            break;\n        case OPT_CHECK:\n            check = 1;\n            break;\n        case OPT_TEXT:\n            text = 1;\n            break;\n        case OPT_DSAPARAM:\n            dsaparam = 1;\n            break;\n        case OPT_C:\n            C = 1;\n            break;\n        case OPT_2:\n            g = 2;\n            break;\n        case OPT_5:\n            g = 5;\n            break;\n        case OPT_NOOUT:\n            noout = 1;\n            break;\n        case OPT_RAND:\n            inrand = opt_arg();\n            break;\n        }\n    }\n    argc = opt_num_rest();\n    argv = opt_rest();\n    if (!app_load_modules(NULL))\n        goto end;\n    if (argv[0] && (!opt_int(argv[0], &num) || num <= 0))\n        goto end;\n    if (g && !num)\n        num = DEFBITS;\n# ifndef OPENSSL_NO_DSA\n    if (dsaparam && g) {\n        BIO_printf(bio_err,\n                   ""generator may not be chosen for DSA parameters\\n"");\n        goto end;\n    }\n# endif\n    if (num && !g)\n        g = 2;\n    if (num) {\n        BN_GENCB *cb;\n        cb = BN_GENCB_new();\n        if (!cb) {\n            ERR_print_errors(bio_err);\n            goto end;\n        }\n        BN_GENCB_set(cb, dh_cb, bio_err);\n        if (!app_RAND_load_file(NULL, 1) && inrand == NULL) {\n            BIO_printf(bio_err,\n                       ""warning, not much extra random data, consider using the -rand option\\n"");\n        }\n        if (inrand != NULL)\n            BIO_printf(bio_err, ""%ld semi-random bytes loaded\\n"",\n                       app_RAND_load_files(inrand));\n# ifndef OPENSSL_NO_DSA\n        if (dsaparam) {\n            DSA *dsa = DSA_new();\n            BIO_printf(bio_err,\n                       ""Generating DSA parameters, %d bit long prime\\n"", num);\n            if (!dsa\n                || !DSA_generate_parameters_ex(dsa, num, NULL, 0, NULL, NULL,\n                                               cb)) {\n                DSA_free(dsa);\n                BN_GENCB_free(cb);\n                ERR_print_errors(bio_err);\n                goto end;\n            }\n            dh = DSA_dup_DH(dsa);\n            DSA_free(dsa);\n            if (dh == NULL) {\n                BN_GENCB_free(cb);\n                ERR_print_errors(bio_err);\n                goto end;\n            }\n        } else\n# endif\n        {\n            dh = DH_new();\n            BIO_printf(bio_err,\n                       ""Generating DH parameters, %d bit long safe prime, generator %d\\n"",\n                       num, g);\n            BIO_printf(bio_err, ""This is going to take a long time\\n"");\n            if (!dh || !DH_generate_parameters_ex(dh, num, g, cb)) {\n                BN_GENCB_free(cb);\n                ERR_print_errors(bio_err);\n                goto end;\n            }\n        }\n        BN_GENCB_free(cb);\n        app_RAND_write_file(NULL);\n    } else {\n        in = bio_open_default(infile, RB(informat));\n        if (in == NULL)\n            goto end;\n# ifndef OPENSSL_NO_DSA\n        if (dsaparam) {\n            DSA *dsa;\n            if (informat == FORMAT_ASN1)\n                dsa = d2i_DSAparams_bio(in, NULL);\n            else\n                dsa = PEM_read_bio_DSAparams(in, NULL, NULL, NULL);\n            if (dsa == NULL) {\n                BIO_printf(bio_err, ""unable to load DSA parameters\\n"");\n                ERR_print_errors(bio_err);\n                goto end;\n            }\n            dh = DSA_dup_DH(dsa);\n            DSA_free(dsa);\n            if (dh == NULL) {\n                ERR_print_errors(bio_err);\n                goto end;\n            }\n        } else\n# endif\n        {\n            if (informat == FORMAT_ASN1)\n                dh = d2i_DHparams_bio(in, NULL);\n            else\n                dh = PEM_read_bio_DHparams(in, NULL, NULL, NULL);\n            if (dh == NULL) {\n                BIO_printf(bio_err, ""unable to load DH parameters\\n"");\n                ERR_print_errors(bio_err);\n                goto end;\n            }\n        }\n    }\n    out = bio_open_default(outfile, ""w"");\n    if (out == NULL)\n        goto end;\n    if (text) {\n        DHparams_print(out, dh);\n    }\n    if (check) {\n        if (!DH_check(dh, &i)) {\n            ERR_print_errors(bio_err);\n            goto end;\n        }\n        if (i & DH_CHECK_P_NOT_PRIME)\n            printf(""p value is not prime\\n"");\n        if (i & DH_CHECK_P_NOT_SAFE_PRIME)\n            printf(""p value is not a safe prime\\n"");\n        if (i & DH_UNABLE_TO_CHECK_GENERATOR)\n            printf(""unable to check the generator value\\n"");\n        if (i & DH_NOT_SUITABLE_GENERATOR)\n            printf(""the g value is not a generator\\n"");\n        if (i == 0)\n            printf(""DH parameters appear to be ok.\\n"");\n    }\n    if (C) {\n        unsigned char *data;\n        int len, bits;\n        len = BN_num_bytes(dh->p);\n        bits = BN_num_bits(dh->p);\n        data = app_malloc(len, ""print a BN"");\n        BIO_printf(out, ""#ifndef HEADER_DH_H\\n""\n                        ""# include <openssl/dh.h>\\n""\n                        ""#endif\\n""\n                        ""\\n"");\n        BIO_printf(out, ""DH *get_dh%d()\\n{\\n"", bits);\n        print_bignum_var(out, dh->p, ""dhp"", bits, data);\n        print_bignum_var(out, dh->g, ""dhg"", bits, data);\n        BIO_printf(out, ""    DH *dh = DN_new();\\n""\n                        ""\\n""\n                        ""    if (dh == NULL)\\n""\n                        ""        return NULL;\\n"");\n        BIO_printf(out, ""    dh->p = BN_bin2bn(dhp_%d, sizeof (dhp_%d), NULL);\\n"",\n               bits, bits);\n        BIO_printf(out, ""    dh->g = BN_bin2bn(dhg_%d, sizeof (dhg_%d), NULL);\\n"",\n               bits, bits);\n        BIO_printf(out, ""    if (!dh->p || !dh->g) {\\n""\n                        ""        DH_free(dh);\\n""\n                        ""        return NULL;\\n""\n                        ""    }\\n"");\n        if (dh->length)\n            BIO_printf(out,\n                        ""    dh->length = %ld;\\n"", dh->length);\n        BIO_printf(out, ""    return dh;\\n}\\n"");\n        OPENSSL_free(data);\n    }\n    if (!noout) {\n        if (outformat == FORMAT_ASN1)\n            i = i2d_DHparams_bio(out, dh);\n        else if (dh->q)\n            i = PEM_write_bio_DHxparams(out, dh);\n        else\n            i = PEM_write_bio_DHparams(out, dh);\n        if (!i) {\n            BIO_printf(bio_err, ""unable to write DH parameters\\n"");\n            ERR_print_errors(bio_err);\n            goto end;\n        }\n    }\n    ret = 0;\n end:\n    BIO_free(in);\n    BIO_free_all(out);\n    DH_free(dh);\n    return (ret);\n}', 'int opt_num_rest(void)\n{\n    int i = 0;\n    char **pp;\n    for (pp = opt_rest(); *pp; pp++, i++)\n        continue;\n    return i;\n}', 'char **opt_rest(void)\n{\n    return &argv[opt_index];\n}', 'int app_load_modules(const CONF *config)\n{\n    CONF *to_free = NULL;\n    if (config == NULL)\n\tconfig = to_free = app_load_config_quiet(default_config_file);\n    if (config == NULL)\n\treturn 1;\n    if (CONF_modules_load(config, NULL, 0) <= 0) {\n        BIO_printf(bio_err, ""Error configuring OpenSSL modules\\n"");\n        ERR_print_errors(bio_err);\n        NCONF_free(to_free);\n        return 0;\n    }\n    NCONF_free(to_free);\n    return 1;\n}', 'BIO *bio_open_default(const char *filename, const char *mode)\n{\n    return bio_open_default_(filename, mode, 0);\n}', 'static BIO *bio_open_default_(const char *filename, const char *mode, int quiet)\n{\n    BIO *ret;\n    if (filename == NULL || strcmp(filename, ""-"") == 0) {\n        ret = *mode == \'r\' ? dup_bio_in() : dup_bio_out();\n        if (quiet) {\n            ERR_clear_error();\n            return ret;\n        }\n        if (ret != NULL)\n            return ret;\n        BIO_printf(bio_err,\n                   ""Can\'t open %s, %s\\n"",\n                   *mode == \'r\' ? ""stdin"" : ""stdout"", strerror(errno));\n    } else {\n        ret = BIO_new_file(filename, mode);\n        if (quiet) {\n            ERR_clear_error();\n            return ret;\n        }\n        if (ret != NULL)\n            return ret;\n        BIO_printf(bio_err,\n                   ""Can\'t open %s for %s, %s\\n"",\n                   filename,\n                   *mode == \'r\' ? ""reading"" : ""writing"", strerror(errno));\n    }\n    ERR_print_errors(bio_err);\n    return NULL;\n}', 'BIO *dup_bio_in(void)\n{\n    return BIO_new_fp(stdin, BIO_NOCLOSE | BIO_FP_TEXT);\n}']"
+36720,0,"test/bntest.c:1802: error: BUFFER_OVERRUN_L3
+  Offset: [4, +oo] (⇐ [0, +oo] + 4) Size: [0, 8388607] by call to `BN_mul`.
+Showing all 12 steps of the trace
+
+
+test/bntest.c:1798:10: Call
+1796.   
+1797.       /* Test that BN_mul never gives negative zero. */
+1798.       if (!BN_set_word(a, 1))
+                 ^
+1799.           goto err;
+1800.       BN_set_negative(a, 1);
+
+crypto/bn/bn_lib.c:463:1: Parameter `*a->d`
+  461.   }
+  462.   
+  463. > int BN_set_word(BIGNUM *a, BN_ULONG w)
+  464.   {
+  465.       bn_check_top(a);
+
+crypto/bn/bn_lib.c:466:9: Call
+  464.   {
+  465.       bn_check_top(a);
+  466.       if (bn_expand(a, (int)sizeof(BN_ULONG) * 8) == NULL)
+                 ^
+  467.           return (0);
+  468.       a->neg = 0;
+
+crypto/bn/bn_lcl.h:676:1: Parameter `*a->d`
+    674.   int bn_probable_prime_dh_coprime(BIGNUM *rnd, int bits, BN_CTX *ctx);
+    675.   
+    676. > static ossl_inline BIGNUM *bn_expand(BIGNUM *a, int bits)
+    677.   {
+    678.       if (bits > (INT_MAX - BN_BITS2 + 1))
+
+test/bntest.c:1802:10: Call
+1800.       BN_set_negative(a, 1);
+1801.       BN_zero(b);
+1802.       if (!BN_mul(c, a, b, ctx))
+                 ^
+1803.           goto err;
+1804.       if (!BN_is_zero(c) || BN_is_negative(c)) {
+
+crypto/bn/bn_mul.c:828:1: Parameter `*b->d`
+  826.   #endif                          /* BN_RECURSION */
+  827.   
+  828. > int BN_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx)
+  829.   {
+  830.       int ret = 0;
+
+crypto/bn/bn_mul.c:909:17: Call
+  907.                   if (bn_wexpand(rr, k * 4) == NULL)
+  908.                       goto err;
+  909.                   bn_mul_part_recursive(rr->d, a->d, b->d,
+                         ^
+  910.                                         j, al - j, bl - j, t->d);
+  911.               } else {            /* al <= j || bl <= j */
+
+crypto/bn/bn_mul.c:480:1: Parameter `*b`
+    478.    */
+    479.   /* tnX may not be negative but less than n */
+    480. > void bn_mul_part_recursive(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b, int n,
+    481.                              int tna, int tnb, BN_ULONG *t)
+    482.   {
+
+crypto/bn/bn_mul.c:488:9: Call
+    486.   
+    487.       if (n < 8) {
+    488.           bn_mul_normal(r, a, n + tna, b, n + tnb);
+                   ^
+    489.           return;
+    490.       }
+
+crypto/bn/bn_mul.c:983:1: <Length trace>
+981.   }
+982.   
+983. > void bn_mul_normal(BN_ULONG *r, BN_ULONG *a, int na, BN_ULONG *b, int nb)
+984.   {
+985.       BN_ULONG *rr;
+
+crypto/bn/bn_mul.c:983:1: Parameter `*b`
+      981.   }
+      982.   
+      983. > void bn_mul_normal(BN_ULONG *r, BN_ULONG *a, int na, BN_ULONG *b, int nb)
+      984.   {
+      985.       BN_ULONG *rr;
+
+crypto/bn/bn_mul.c:1018:50: Array access: Offset: [4, +oo] (⇐ [0, +oo] + 4) Size: [0, 8388607] by call to `BN_mul` 
+      1016.           if (--nb <= 0)
+      1017.               return;
+      1018.           rr[4] = bn_mul_add_words(&(r[4]), a, na, b[4]);
+                                                               ^
+      1019.           rr += 4;
+      1020.           r += 4;
+",https://github.com/openssl/openssl/blob/0282aeb690d63fab73a07191b63300a2fe30d212/crypto/bn/bn_mul.c/#L1018,"void bn_mul_normal(BN_ULONG *r, BN_ULONG *a, int na, BN_ULONG *b, int nb)
+{
+    BN_ULONG *rr;
+    if (na < nb) {
+        int itmp;
+        BN_ULONG *ltmp;
+        itmp = na;
+        na = nb;
+        nb = itmp;
+        ltmp = a;
+        a = b;
+        b = ltmp;
+    }
+    rr = &(r[na]);
+    if (nb <= 0) {
+        (void)bn_mul_words(r, a, na, 0);
+        return;
+    } else
+        rr[0] = bn_mul_words(r, a, na, b[0]);
+    for (;;) {
+        if (--nb <= 0)
+            return;
+        rr[1] = bn_mul_add_words(&(r[1]), a, na, b[1]);
+        if (--nb <= 0)
+            return;
+        rr[2] = bn_mul_add_words(&(r[2]), a, na, b[2]);
+        if (--nb <= 0)
+            return;
+        rr[3] = bn_mul_add_words(&(r[3]), a, na, b[3]);
+        if (--nb <= 0)
+            return;
+        rr[4] = bn_mul_add_words(&(r[4]), a, na, b[4]);
+        rr += 4;
+        r += 4;
+        b += 4;
+    }
+}","['static int test_negzero()\n{\n    BIGNUM *a = BN_new();\n    BIGNUM *b = BN_new();\n    BIGNUM *c = BN_new();\n    BIGNUM *d = BN_new();\n    BIGNUM *numerator = NULL, *denominator = NULL;\n    int consttime, st = 0;\n    if (a == NULL || b == NULL || c == NULL || d == NULL)\n        goto err;\n    if (!BN_set_word(a, 1))\n        goto err;\n    BN_set_negative(a, 1);\n    BN_zero(b);\n    if (!BN_mul(c, a, b, ctx))\n        goto err;\n    if (!BN_is_zero(c) || BN_is_negative(c)) {\n        fprintf(stderr, ""Multiplication test failed!\\n"");\n        goto err;\n    }\n    for (consttime = 0; consttime < 2; consttime++) {\n        numerator = BN_new();\n        denominator = BN_new();\n        if (numerator == NULL || denominator == NULL)\n            goto err;\n        if (consttime) {\n            BN_set_flags(numerator, BN_FLG_CONSTTIME);\n            BN_set_flags(denominator, BN_FLG_CONSTTIME);\n        }\n        if (!BN_set_word(numerator, 1) || !BN_set_word(denominator, 2))\n            goto err;\n        BN_set_negative(numerator, 1);\n        if (!BN_div(a, b, numerator, denominator, ctx))\n            goto err;\n        if (!BN_is_zero(a) || BN_is_negative(a)) {\n            fprintf(stderr, ""Incorrect quotient (consttime = %d).\\n"",\n                    consttime);\n            goto err;\n        }\n        if (!BN_set_word(denominator, 1))\n            goto err;\n        if (!BN_div(a, b, numerator, denominator, ctx))\n            goto err;\n        if (!BN_is_zero(b) || BN_is_negative(b)) {\n            fprintf(stderr, ""Incorrect remainder (consttime = %d).\\n"",\n                    consttime);\n            goto err;\n        }\n        BN_free(numerator);\n        BN_free(denominator);\n        numerator = denominator = NULL;\n    }\n    BN_zero(a);\n    BN_set_negative(a, 1);\n    if (BN_is_negative(a)) {\n        fprintf(stderr, ""BN_set_negative produced a negative zero.\\n"");\n        goto err;\n    }\n    st = 1;\nerr:\n    BN_free(a);\n    BN_free(b);\n    BN_free(c);\n    BN_free(d);\n    BN_free(numerator);\n    BN_free(denominator);\n    return st;\n}', 'int BN_set_word(BIGNUM *a, BN_ULONG w)\n{\n    bn_check_top(a);\n    if (bn_expand(a, (int)sizeof(BN_ULONG) * 8) == NULL)\n        return (0);\n    a->neg = 0;\n    a->d[0] = w;\n    a->top = (w ? 1 : 0);\n    bn_check_top(a);\n    return (1);\n}', 'static ossl_inline BIGNUM *bn_expand(BIGNUM *a, int bits)\n{\n    if (bits > (INT_MAX - BN_BITS2 + 1))\n        return NULL;\n    if (((bits+BN_BITS2-1)/BN_BITS2) <= (a)->dmax)\n        return a;\n    return bn_expand2((a),(bits+BN_BITS2-1)/BN_BITS2);\n}', 'int BN_mul(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx)\n{\n    int ret = 0;\n    int top, al, bl;\n    BIGNUM *rr;\n#if defined(BN_MUL_COMBA) || defined(BN_RECURSION)\n    int i;\n#endif\n#ifdef BN_RECURSION\n    BIGNUM *t = NULL;\n    int j = 0, k;\n#endif\n    bn_check_top(a);\n    bn_check_top(b);\n    bn_check_top(r);\n    al = a->top;\n    bl = b->top;\n    if ((al == 0) || (bl == 0)) {\n        BN_zero(r);\n        return (1);\n    }\n    top = al + bl;\n    BN_CTX_start(ctx);\n    if ((r == a) || (r == b)) {\n        if ((rr = BN_CTX_get(ctx)) == NULL)\n            goto err;\n    } else\n        rr = r;\n    rr->neg = a->neg ^ b->neg;\n#if defined(BN_MUL_COMBA) || defined(BN_RECURSION)\n    i = al - bl;\n#endif\n#ifdef BN_MUL_COMBA\n    if (i == 0) {\n# if 0\n        if (al == 4) {\n            if (bn_wexpand(rr, 8) == NULL)\n                goto err;\n            rr->top = 8;\n            bn_mul_comba4(rr->d, a->d, b->d);\n            goto end;\n        }\n# endif\n        if (al == 8) {\n            if (bn_wexpand(rr, 16) == NULL)\n                goto err;\n            rr->top = 16;\n            bn_mul_comba8(rr->d, a->d, b->d);\n            goto end;\n        }\n    }\n#endif\n#ifdef BN_RECURSION\n    if ((al >= BN_MULL_SIZE_NORMAL) && (bl >= BN_MULL_SIZE_NORMAL)) {\n        if (i >= -1 && i <= 1) {\n            if (i >= 0) {\n                j = BN_num_bits_word((BN_ULONG)al);\n            }\n            if (i == -1) {\n                j = BN_num_bits_word((BN_ULONG)bl);\n            }\n            j = 1 << (j - 1);\n            assert(j <= al || j <= bl);\n            k = j + j;\n            t = BN_CTX_get(ctx);\n            if (t == NULL)\n                goto err;\n            if (al > j || bl > j) {\n                if (bn_wexpand(t, k * 4) == NULL)\n                    goto err;\n                if (bn_wexpand(rr, k * 4) == NULL)\n                    goto err;\n                bn_mul_part_recursive(rr->d, a->d, b->d,\n                                      j, al - j, bl - j, t->d);\n            } else {\n                if (bn_wexpand(t, k * 2) == NULL)\n                    goto err;\n                if (bn_wexpand(rr, k * 2) == NULL)\n                    goto err;\n                bn_mul_recursive(rr->d, a->d, b->d, j, al - j, bl - j, t->d);\n            }\n            rr->top = top;\n            goto end;\n        }\n# if 0\n        if (i == 1 && !BN_get_flags(b, BN_FLG_STATIC_DATA)) {\n            BIGNUM *tmp_bn = (BIGNUM *)b;\n            if (bn_wexpand(tmp_bn, al) == NULL)\n                goto err;\n            tmp_bn->d[bl] = 0;\n            bl++;\n            i--;\n        } else if (i == -1 && !BN_get_flags(a, BN_FLG_STATIC_DATA)) {\n            BIGNUM *tmp_bn = (BIGNUM *)a;\n            if (bn_wexpand(tmp_bn, bl) == NULL)\n                goto err;\n            tmp_bn->d[al] = 0;\n            al++;\n            i++;\n        }\n        if (i == 0) {\n            j = BN_num_bits_word((BN_ULONG)al);\n            j = 1 << (j - 1);\n            k = j + j;\n            t = BN_CTX_get(ctx);\n            if (al == j) {\n                if (bn_wexpand(t, k * 2) == NULL)\n                    goto err;\n                if (bn_wexpand(rr, k * 2) == NULL)\n                    goto err;\n                bn_mul_recursive(rr->d, a->d, b->d, al, t->d);\n            } else {\n                if (bn_wexpand(t, k * 4) == NULL)\n                    goto err;\n                if (bn_wexpand(rr, k * 4) == NULL)\n                    goto err;\n                bn_mul_part_recursive(rr->d, a->d, b->d, al - j, j, t->d);\n            }\n            rr->top = top;\n            goto end;\n        }\n# endif\n    }\n#endif\n    if (bn_wexpand(rr, top) == NULL)\n        goto err;\n    rr->top = top;\n    bn_mul_normal(rr->d, a->d, al, b->d, bl);\n#if defined(BN_MUL_COMBA) || defined(BN_RECURSION)\n end:\n#endif\n    bn_correct_top(rr);\n    if (r != rr && BN_copy(r, rr) == NULL)\n        goto err;\n    ret = 1;\n err:\n    bn_check_top(r);\n    BN_CTX_end(ctx);\n    return (ret);\n}', 'void bn_mul_part_recursive(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b, int n,\n                           int tna, int tnb, BN_ULONG *t)\n{\n    int i, j, n2 = n * 2;\n    int c1, c2, neg;\n    BN_ULONG ln, lo, *p;\n    if (n < 8) {\n        bn_mul_normal(r, a, n + tna, b, n + tnb);\n        return;\n    }\n    c1 = bn_cmp_part_words(a, &(a[n]), tna, n - tna);\n    c2 = bn_cmp_part_words(&(b[n]), b, tnb, tnb - n);\n    neg = 0;\n    switch (c1 * 3 + c2) {\n    case -4:\n        bn_sub_part_words(t, &(a[n]), a, tna, tna - n);\n        bn_sub_part_words(&(t[n]), b, &(b[n]), tnb, n - tnb);\n        break;\n    case -3:\n    case -2:\n        bn_sub_part_words(t, &(a[n]), a, tna, tna - n);\n        bn_sub_part_words(&(t[n]), &(b[n]), b, tnb, tnb - n);\n        neg = 1;\n        break;\n    case -1:\n    case 0:\n    case 1:\n    case 2:\n        bn_sub_part_words(t, a, &(a[n]), tna, n - tna);\n        bn_sub_part_words(&(t[n]), b, &(b[n]), tnb, n - tnb);\n        neg = 1;\n        break;\n    case 3:\n    case 4:\n        bn_sub_part_words(t, a, &(a[n]), tna, n - tna);\n        bn_sub_part_words(&(t[n]), &(b[n]), b, tnb, tnb - n);\n        break;\n    }\n# if 0\n    if (n == 4) {\n        bn_mul_comba4(&(t[n2]), t, &(t[n]));\n        bn_mul_comba4(r, a, b);\n        bn_mul_normal(&(r[n2]), &(a[n]), tn, &(b[n]), tn);\n        memset(&r[n2 + tn * 2], 0, sizeof(*r) * (n2 - tn * 2));\n    } else\n# endif\n    if (n == 8) {\n        bn_mul_comba8(&(t[n2]), t, &(t[n]));\n        bn_mul_comba8(r, a, b);\n        bn_mul_normal(&(r[n2]), &(a[n]), tna, &(b[n]), tnb);\n        memset(&r[n2 + tna + tnb], 0, sizeof(*r) * (n2 - tna - tnb));\n    } else {\n        p = &(t[n2 * 2]);\n        bn_mul_recursive(&(t[n2]), t, &(t[n]), n, 0, 0, p);\n        bn_mul_recursive(r, a, b, n, 0, 0, p);\n        i = n / 2;\n        if (tna > tnb)\n            j = tna - i;\n        else\n            j = tnb - i;\n        if (j == 0) {\n            bn_mul_recursive(&(r[n2]), &(a[n]), &(b[n]),\n                             i, tna - i, tnb - i, p);\n            memset(&r[n2 + i * 2], 0, sizeof(*r) * (n2 - i * 2));\n        } else if (j > 0) {\n            bn_mul_part_recursive(&(r[n2]), &(a[n]), &(b[n]),\n                                  i, tna - i, tnb - i, p);\n            memset(&(r[n2 + tna + tnb]), 0,\n                   sizeof(BN_ULONG) * (n2 - tna - tnb));\n        } else {\n            memset(&r[n2], 0, sizeof(*r) * n2);\n            if (tna < BN_MUL_RECURSIVE_SIZE_NORMAL\n                && tnb < BN_MUL_RECURSIVE_SIZE_NORMAL) {\n                bn_mul_normal(&(r[n2]), &(a[n]), tna, &(b[n]), tnb);\n            } else {\n                for (;;) {\n                    i /= 2;\n                    if (i < tna || i < tnb) {\n                        bn_mul_part_recursive(&(r[n2]),\n                                              &(a[n]), &(b[n]),\n                                              i, tna - i, tnb - i, p);\n                        break;\n                    } else if (i == tna || i == tnb) {\n                        bn_mul_recursive(&(r[n2]),\n                                         &(a[n]), &(b[n]),\n                                         i, tna - i, tnb - i, p);\n                        break;\n                    }\n                }\n            }\n        }\n    }\n    c1 = (int)(bn_add_words(t, r, &(r[n2]), n2));\n    if (neg) {\n        c1 -= (int)(bn_sub_words(&(t[n2]), t, &(t[n2]), n2));\n    } else {\n        c1 += (int)(bn_add_words(&(t[n2]), &(t[n2]), t, n2));\n    }\n    c1 += (int)(bn_add_words(&(r[n]), &(r[n]), &(t[n2]), n2));\n    if (c1) {\n        p = &(r[n + n2]);\n        lo = *p;\n        ln = (lo + c1) & BN_MASK2;\n        *p = ln;\n        if (ln < (BN_ULONG)c1) {\n            do {\n                p++;\n                lo = *p;\n                ln = (lo + 1) & BN_MASK2;\n                *p = ln;\n            } while (ln == 0);\n        }\n    }\n}', 'void bn_mul_normal(BN_ULONG *r, BN_ULONG *a, int na, BN_ULONG *b, int nb)\n{\n    BN_ULONG *rr;\n    if (na < nb) {\n        int itmp;\n        BN_ULONG *ltmp;\n        itmp = na;\n        na = nb;\n        nb = itmp;\n        ltmp = a;\n        a = b;\n        b = ltmp;\n    }\n    rr = &(r[na]);\n    if (nb <= 0) {\n        (void)bn_mul_words(r, a, na, 0);\n        return;\n    } else\n        rr[0] = bn_mul_words(r, a, na, b[0]);\n    for (;;) {\n        if (--nb <= 0)\n            return;\n        rr[1] = bn_mul_add_words(&(r[1]), a, na, b[1]);\n        if (--nb <= 0)\n            return;\n        rr[2] = bn_mul_add_words(&(r[2]), a, na, b[2]);\n        if (--nb <= 0)\n            return;\n        rr[3] = bn_mul_add_words(&(r[3]), a, na, b[3]);\n        if (--nb <= 0)\n            return;\n        rr[4] = bn_mul_add_words(&(r[4]), a, na, b[4]);\n        rr += 4;\n        r += 4;\n        b += 4;\n    }\n}']"
+36721,0,"libavdevice/v4l2.c:535: error: Uninitialized Value
+  The value read from framerate_q.num was never initialized.
+
+libavdevice/v4l2.c:535:13: 
+533.         }
+534. 
+535.         if (framerate_q.num != tpf->denominator ||
+                 ^
+536.             framerate_q.den != tpf->numerator) {
+537.             av_log(s1, AV_LOG_INFO,
+",https://github.com/libav/libav/blob/a4bda405447b13e84b4004ab281ae01abd230e22/libavdevice/v4l2.c/#L535,"static int v4l2_set_parameters(AVFormatContext *s1, AVFormatParameters *ap)
+{
+    struct video_data *s = s1->priv_data;
+    struct v4l2_input input;
+    struct v4l2_standard standard;
+    struct v4l2_streamparm streamparm = { 0 };
+    struct v4l2_fract *tpf = &streamparm.parm.capture.timeperframe;
+    int i, ret;
+    AVRational framerate_q;
+    streamparm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+    if (s->framerate && (ret = av_parse_video_rate(&framerate_q, s->framerate)) < 0) {
+        av_log(s1, AV_LOG_ERROR, ""Couldn't parse framerate.\n"");
+        return ret;
+    }
+#if FF_API_FORMAT_PARAMETERS
+    if (ap->channel > 0)
+        s->channel = ap->channel;
+    if (ap->time_base.num)
+        framerate_q = (AVRational){ap->time_base.den, ap->time_base.num};
+#endif
+    memset (&input, 0, sizeof (input));
+    input.index = s->channel;
+    if (ioctl(s->fd, VIDIOC_ENUMINPUT, &input) < 0) {
+        av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl enum input failed:\n"");
+        return AVERROR(EIO);
+    }
+    av_log(s1, AV_LOG_DEBUG, ""The V4L2 driver set input_id: %d, input: %s\n"",
+            s->channel, input.name);
+    if (ioctl(s->fd, VIDIOC_S_INPUT, &input.index) < 0) {
+        av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl set input(%d) failed\n"",
+                s->channel);
+        return AVERROR(EIO);
+    }
+#if FF_API_FORMAT_PARAMETERS
+    if (ap->standard) {
+        av_freep(&s->standard);
+        s->standard = av_strdup(ap->standard);
+    }
+#endif
+    if (s->standard) {
+        av_log(s1, AV_LOG_DEBUG, ""The V4L2 driver set standard: %s\n"",
+               s->standard);
+        memset (&standard, 0, sizeof (standard));
+        for(i=0;;i++) {
+            standard.index = i;
+            if (ioctl(s->fd, VIDIOC_ENUMSTD, &standard) < 0) {
+                av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl set standard(%s) failed\n"",
+                       s->standard);
+                return AVERROR(EIO);
+            }
+            if (!strcasecmp(standard.name, s->standard)) {
+                break;
+            }
+        }
+        av_log(s1, AV_LOG_DEBUG, ""The V4L2 driver set standard: %s, id: %""PRIu64""\n"",
+               s->standard, (uint64_t)standard.id);
+        if (ioctl(s->fd, VIDIOC_S_STD, &standard.id) < 0) {
+            av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl set standard(%s) failed\n"",
+                   s->standard);
+            return AVERROR(EIO);
+        }
+    }
+    if (framerate_q.num && framerate_q.den) {
+        av_log(s1, AV_LOG_DEBUG, ""Setting time per frame to %d/%d\n"",
+               framerate_q.den, framerate_q.num);
+        tpf->numerator   = framerate_q.den;
+        tpf->denominator = framerate_q.num;
+        if (ioctl(s->fd, VIDIOC_S_PARM, &streamparm) != 0) {
+            av_log(s1, AV_LOG_ERROR,
+                   ""ioctl set time per frame(%d/%d) failed\n"",
+                   framerate_q.den, framerate_q.num);
+            return AVERROR(EIO);
+        }
+        if (framerate_q.num != tpf->denominator ||
+            framerate_q.den != tpf->numerator) {
+            av_log(s1, AV_LOG_INFO,
+                   ""The driver changed the time per frame from %d/%d to %d/%d\n"",
+                   framerate_q.den, framerate_q.num,
+                   tpf->numerator, tpf->denominator);
+        }
+    } else {
+        if (ioctl(s->fd, VIDIOC_G_PARM, &streamparm) != 0) {
+            av_log(s1, AV_LOG_ERROR, ""ioctl(VIDIOC_G_PARM): %s\n"", strerror(errno));
+            return AVERROR(errno);
+        }
+    }
+    s1->streams[0]->codec->time_base.den = tpf->denominator;
+    s1->streams[0]->codec->time_base.num = tpf->numerator;
+    return 0;
+}","['static int v4l2_set_parameters(AVFormatContext *s1, AVFormatParameters *ap)\n{\n    struct video_data *s = s1->priv_data;\n    struct v4l2_input input;\n    struct v4l2_standard standard;\n    struct v4l2_streamparm streamparm = { 0 };\n    struct v4l2_fract *tpf = &streamparm.parm.capture.timeperframe;\n    int i, ret;\n    AVRational framerate_q;\n    streamparm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;\n    if (s->framerate && (ret = av_parse_video_rate(&framerate_q, s->framerate)) < 0) {\n        av_log(s1, AV_LOG_ERROR, ""Couldn\'t parse framerate.\\n"");\n        return ret;\n    }\n#if FF_API_FORMAT_PARAMETERS\n    if (ap->channel > 0)\n        s->channel = ap->channel;\n    if (ap->time_base.num)\n        framerate_q = (AVRational){ap->time_base.den, ap->time_base.num};\n#endif\n    memset (&input, 0, sizeof (input));\n    input.index = s->channel;\n    if (ioctl(s->fd, VIDIOC_ENUMINPUT, &input) < 0) {\n        av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl enum input failed:\\n"");\n        return AVERROR(EIO);\n    }\n    av_log(s1, AV_LOG_DEBUG, ""The V4L2 driver set input_id: %d, input: %s\\n"",\n            s->channel, input.name);\n    if (ioctl(s->fd, VIDIOC_S_INPUT, &input.index) < 0) {\n        av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl set input(%d) failed\\n"",\n                s->channel);\n        return AVERROR(EIO);\n    }\n#if FF_API_FORMAT_PARAMETERS\n    if (ap->standard) {\n        av_freep(&s->standard);\n        s->standard = av_strdup(ap->standard);\n    }\n#endif\n    if (s->standard) {\n        av_log(s1, AV_LOG_DEBUG, ""The V4L2 driver set standard: %s\\n"",\n               s->standard);\n        memset (&standard, 0, sizeof (standard));\n        for(i=0;;i++) {\n            standard.index = i;\n            if (ioctl(s->fd, VIDIOC_ENUMSTD, &standard) < 0) {\n                av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl set standard(%s) failed\\n"",\n                       s->standard);\n                return AVERROR(EIO);\n            }\n            if (!strcasecmp(standard.name, s->standard)) {\n                break;\n            }\n        }\n        av_log(s1, AV_LOG_DEBUG, ""The V4L2 driver set standard: %s, id: %""PRIu64""\\n"",\n               s->standard, (uint64_t)standard.id);\n        if (ioctl(s->fd, VIDIOC_S_STD, &standard.id) < 0) {\n            av_log(s1, AV_LOG_ERROR, ""The V4L2 driver ioctl set standard(%s) failed\\n"",\n                   s->standard);\n            return AVERROR(EIO);\n        }\n    }\n    if (framerate_q.num && framerate_q.den) {\n        av_log(s1, AV_LOG_DEBUG, ""Setting time per frame to %d/%d\\n"",\n               framerate_q.den, framerate_q.num);\n        tpf->numerator   = framerate_q.den;\n        tpf->denominator = framerate_q.num;\n        if (ioctl(s->fd, VIDIOC_S_PARM, &streamparm) != 0) {\n            av_log(s1, AV_LOG_ERROR,\n                   ""ioctl set time per frame(%d/%d) failed\\n"",\n                   framerate_q.den, framerate_q.num);\n            return AVERROR(EIO);\n        }\n        if (framerate_q.num != tpf->denominator ||\n            framerate_q.den != tpf->numerator) {\n            av_log(s1, AV_LOG_INFO,\n                   ""The driver changed the time per frame from %d/%d to %d/%d\\n"",\n                   framerate_q.den, framerate_q.num,\n                   tpf->numerator, tpf->denominator);\n        }\n    } else {\n        if (ioctl(s->fd, VIDIOC_G_PARM, &streamparm) != 0) {\n            av_log(s1, AV_LOG_ERROR, ""ioctl(VIDIOC_G_PARM): %s\\n"", strerror(errno));\n            return AVERROR(errno);\n        }\n    }\n    s1->streams[0]->codec->time_base.den = tpf->denominator;\n    s1->streams[0]->codec->time_base.num = tpf->numerator;\n    return 0;\n}']"

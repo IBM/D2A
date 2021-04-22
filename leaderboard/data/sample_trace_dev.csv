@@ -1,0 +1,197 @@
+id,label,trace
+36850,1,"libavcodec/dsputil.c:3026: error: Buffer Overrun L2
+  Offset: [0, 63] Size: 16.
+
+libavcodec/dsputil.c:3025:9: <Offset trace>
+3023.     if (ARCH_BFIN)       ff_dsputil_init_bfin  (c, avctx);
+3024. 
+3025.     for(i=0; i<64; i++){
+              ^
+3026.         if(!c->put_2tap_qpel_pixels_tab[0][i])
+3027.             c->put_2tap_qpel_pixels_tab[0][i]= c->put_h264_qpel_pixels_tab[0][i];
+
+libavcodec/dsputil.c:3025:9: Assignment
+3023.     if (ARCH_BFIN)       ff_dsputil_init_bfin  (c, avctx);
+3024. 
+3025.     for(i=0; i<64; i++){
+              ^
+3026.         if(!c->put_2tap_qpel_pixels_tab[0][i])
+3027.             c->put_2tap_qpel_pixels_tab[0][i]= c->put_h264_qpel_pixels_tab[0][i];
+
+libavcodec/dsputil.c:2681:9: <Length trace>
+2679. }
+2680. 
+2681. av_cold void ff_dsputil_init(DSPContext* c, AVCodecContext *avctx)
+              ^
+2682. {
+2683.     int i;
+
+libavcodec/dsputil.c:2681:9: Parameter `c->put_2tap_qpel_pixels_tab[*][*]`
+2679. }
+2680. 
+2681. av_cold void ff_dsputil_init(DSPContext* c, AVCodecContext *avctx)
+              ^
+2682. {
+2683.     int i;
+
+libavcodec/dsputil.c:3026:13: Array access: Offset: [0, 63] Size: 16
+3024. 
+3025.     for(i=0; i<64; i++){
+3026.         if(!c->put_2tap_qpel_pixels_tab[0][i])
+                  ^
+3027.             c->put_2tap_qpel_pixels_tab[0][i]= c->put_h264_qpel_pixels_tab[0][i];
+3028.         if(!c->avg_2tap_qpel_pixels_tab[0][i])
+"
+36875,1,"libtiff/tif_write.c:237: error: Buffer Overrun S2
+  Offset: `strip` Size: [0, +oo].
+
+libtiff/tif_write.c:185:1: <Offset trace>
+183.  * NB: Image length must be setup before writing.
+184.  */
+185. tmsize_t
+     ^
+186. TIFFWriteEncodedStrip(TIFF* tif, uint32 strip, void* data, tmsize_t cc)
+187. {
+
+libtiff/tif_write.c:185:1: Parameter `strip`
+183.  * NB: Image length must be setup before writing.
+184.  */
+185. tmsize_t
+     ^
+186. TIFFWriteEncodedStrip(TIFF* tif, uint32 strip, void* data, tmsize_t cc)
+187. {
+
+libtiff/tif_write.c:185:1: <Length trace>
+183.  * NB: Image length must be setup before writing.
+184.  */
+185. tmsize_t
+     ^
+186. TIFFWriteEncodedStrip(TIFF* tif, uint32 strip, void* data, tmsize_t cc)
+187. {
+
+libtiff/tif_write.c:185:1: Parameter `*tif->tif_dir.td_stripbytecount`
+183.  * NB: Image length must be setup before writing.
+184.  */
+185. tmsize_t
+     ^
+186. TIFFWriteEncodedStrip(TIFF* tif, uint32 strip, void* data, tmsize_t cc)
+187. {
+
+libtiff/tif_write.c:237:6: Array access: Offset: strip Size: [0, +oo]
+235. 	}
+236. 
+237. 	if( td->td_stripbytecount[strip] > 0 )
+          ^
+238.         {
+239.             /* Make sure that at the first attempt of rewriting the tile, we will have */
+"
+36720,0,"crypto/modes/gcm128.c:614: error: BUFFER_OVERRUN_L3
+  Offset added: 12 Size: [0, +oo].
+Showing all 3 steps of the trace
+
+
+crypto/modes/gcm128.c:600:1: <Length trace>
+598.   }
+599.   
+600. > void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx,const unsigned char *iv,size_t len)
+601.   {
+602.   	const union { long one; char little; } is_endian = {1};
+
+crypto/modes/gcm128.c:600:1: Parameter `ctx->Yi.c[*]`
+598.   }
+599.   
+600. > void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx,const unsigned char *iv,size_t len)
+601.   {
+602.   	const union { long one; char little; } is_endian = {1};
+
+crypto/modes/gcm128.c:614:3: Array access: Offset added: 12 Size: [0, +oo]
+612.   
+613.   	if (len==12) {
+614.   		memcpy(ctx->Yi.c,iv,12);
+         ^
+615.   		ctx->Yi.c[15]=1;
+616.   		ctr=1;
+"
+36721,0,"ffmpeg.c:3230: error: Null Dereference
+  pointer `st` last assigned on line 3225 could be null and is dereferenced at line 3230, column 35.
+
+ffmpeg.c:3219:1: start of procedure new_audio_stream()
+3217. }
+3218. 
+3219. static void new_audio_stream(AVFormatContext *oc)
+      ^
+3220. {
+3221.     AVStream *st;
+
+ffmpeg.c:3225:5: 
+3223.     enum CodecID codec_id;
+3224. 
+3225.     st = av_new_stream(oc, oc->nb_streams);
+          ^
+3226.     if (!st) {
+3227.         fprintf(stderr, ""Could not alloc stream\n"");
+
+libavformat/utils.c:2409:1: start of procedure av_new_stream()
+  2407. }
+  2408. 
+  2409. AVStream *av_new_stream(AVFormatContext *s, int id)
+        ^
+  2410. {
+  2411.     AVStream *st;
+
+libavformat/utils.c:2414:9: Taking true branch
+  2412.     int i;
+  2413. 
+  2414.     if (s->nb_streams >= MAX_STREAMS)
+                ^
+  2415.         return NULL;
+  2416. 
+
+libavformat/utils.c:2415:9: 
+  2413. 
+  2414.     if (s->nb_streams >= MAX_STREAMS)
+  2415.         return NULL;
+                ^
+  2416. 
+  2417.     st = av_mallocz(sizeof(AVStream));
+
+libavformat/utils.c:2449:1: return from a call to av_new_stream
+  2447.     s->streams[s->nb_streams++] = st;
+  2448.     return st;
+  2449. }
+        ^
+  2450. 
+  2451. AVProgram *av_new_program(AVFormatContext *ac, int id)
+
+ffmpeg.c:3226:10: Taking true branch
+3224. 
+3225.     st = av_new_stream(oc, oc->nb_streams);
+3226.     if (!st) {
+               ^
+3227.         fprintf(stderr, ""Could not alloc stream\n"");
+3228.         av_exit(1);
+
+ffmpeg.c:3227:9: 
+3225.     st = av_new_stream(oc, oc->nb_streams);
+3226.     if (!st) {
+3227.         fprintf(stderr, ""Could not alloc stream\n"");
+              ^
+3228.         av_exit(1);
+3229.     }
+
+ffmpeg.c:3228:9: Skipping av_exit(): empty list of specs
+3226.     if (!st) {
+3227.         fprintf(stderr, ""Could not alloc stream\n"");
+3228.         av_exit(1);
+              ^
+3229.     }
+3230.     avcodec_get_context_defaults2(st->codec, CODEC_TYPE_AUDIO);
+
+ffmpeg.c:3230:5: 
+3228.         av_exit(1);
+3229.     }
+3230.     avcodec_get_context_defaults2(st->codec, CODEC_TYPE_AUDIO);
+          ^
+3231. 
+3232.     bitstream_filters[nb_output_files][oc->nb_streams - 1]= audio_bitstream_filters;
+"
