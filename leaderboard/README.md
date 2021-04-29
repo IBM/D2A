@@ -41,6 +41,10 @@ The fields in the dataset are:
 
 You can find more information on each column in the [data section](/leaderboard/data/README.md).
 
+## Task and Data Summary
+
+![TaskDataSummary](/leaderboard/TaskDataSummary.png?raw=true)
+
 ## Metrics
 
 The datasets for the Code + Trace, Trace and Code tasks are derived from the auto-labeler generated samples, and are quite unbalanced with a 0:1 ratio of about 40:1. 
@@ -57,9 +61,13 @@ Because of these different distributions we use different metrics to measure the
 
 * [**Augmented Static Analyzer**](https://arxiv.org/pdf/2102.07995.pdf): ML based ensemble of various models that uses hand crafted features.
 	* Voting
-	* Stacking
+	* Linear Regression based Stacking
+
+<img src="/leaderboard/AugSAPipeline.png" width="300" height="300">
 
 * [**C-BERT**](https://arxiv.org/pdf/2006.12641.pdf): This a BERT based model pre-trained on C source code. 
+
+![C-BERT](/leaderboard/C-BERTPipeline.png?raw=true "C-BERT Pipeline")
 
 ## Evaluation
 
