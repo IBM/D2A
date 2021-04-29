@@ -63,7 +63,7 @@ Because of these different distributions we use different metrics to measure the
 	* Voting
 	* Linear Regression based Stacking
 
-<img src="/leaderboard/AugSAPipeline.png" width="300" height="300">
+<img src="/leaderboard/AugSAPipeline.png" width="400" height="400">
 
 * [**C-BERT**](https://arxiv.org/pdf/2006.12641.pdf): This a BERT based model pre-trained on C source code. 
 
