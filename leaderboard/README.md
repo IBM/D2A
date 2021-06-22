@@ -39,6 +39,7 @@ The fields in the dataset are:
 	2. code
 	3. label (not present in test split)
 
+All the data is in the **d2a_leaderboard_dat.tar.gz** tar file on the [DAX data download page](https://developer.ibm.com/exchanges/data/all/d2a/#get-this-dataset). Within the tar file the data for each task is in a separate folder. For example, the data for the **Function** task is in a folder named **function**. 
 You can find more information on each column in the [data section](/leaderboard/data/README.md).
 
 ## Task and Data Summary
