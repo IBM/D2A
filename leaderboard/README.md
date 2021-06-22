@@ -34,7 +34,7 @@ The fields in the dataset are:
 	4. functions
 	5. trace
 	6. label (not present in test split)
-4. **Function**: Models can use only the source code from the bug function to make the prediction. This is a subset of the functions present in the bug_function column of Code/Trace+Code datasets.
+4. **Function**: Models can use only the source code from the bug function to make the prediction. The functions have been derived from a different subset of the full D2A dataset chosen to achieve a more balanced dataset.
 	1. id
 	2. code
 	3. label (not present in test split)
