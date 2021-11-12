@@ -12,6 +12,7 @@ This repository is to support contributions for tools that generated the D2A dat
 * [Downloading the D2A Dataset and the Splits](#downloading-the-d2a-dataset-and-the-splits)
 * [Sample Description and Dataset Stats](#sample-description-and-dataset-stats)
 * [Using the Dataset](#using-the-dataset)
+* [D2A Leaderboard](#d2a-leaderboard)
 * [Annotating More Projects](#annotating-more-projects)
 * [D2A Paper and Citation](#d2a-paper-and-citation)
 
@@ -69,6 +70,12 @@ Details could be found in [Sample Description and Dataset Stats](docs/dataset_st
 ## Using the Dataset
 
 Please refer to [Dataset Usage Examples](docs/dataset_usage.md) for details.
+
+## D2A Leaderboard
+
+[Leaderboard](https://ibm.github.io/D2A/)
+
+[More details](https://github.com/IBM/D2A/tree/main/leaderboard)
 
 ## Annotating More Projects
 
