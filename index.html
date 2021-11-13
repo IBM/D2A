@@ -80,12 +80,12 @@
             </div>
         </div>
     </section>
-    <section id="leaderboard" class="bg-light">
+    <section id="overall-leaderboard" class="bg-light">
         <div class="container">
             <div class="row">
                 <div class="table-responsive">
 
-                    <h2>Leaderboard</h2>
+                    <h2>Overall Leaderboard</h2>
 
                     <div class="table-responsive">
                         <table class="table" style="text-align:center">
@@ -96,11 +96,11 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th style="text-align:center">Overall Score</th>
                                     <th colspan="2" style="text-align:center">Code + Trace</th>
                                     <th colspan="2" style="text-align:center">Trace</th>
                                     <th colspan="2" style="text-align:center">Code</th>
                                     <th style="text-align:center">Function</th>
+                                    <th style="text-align:center">Overall Score</th>
                                 </tr>
                             </thead>
                             <thead>
@@ -110,7 +110,6 @@
                                     <th style="text-align:center">Team</th>
                                     <th style="text-align:center">Organization</th>
                                     <th style="text-align:center">Date</th>
-                                    <th style="font-size:15px;text-align:center">Average</th>
                                     <th style="font-size:15px;text-align:center">F1</th>
                                     <th style="font-size:15px;text-align:center">AUC</th>
                                     <th style="font-size:15px;text-align:center">F1</th>
@@ -118,6 +117,7 @@
                                     <th style="font-size:15px;text-align:center">F1</th>
                                     <th style="font-size:15px;text-align:center">AUC</th>
                                     <th style="font-size:15px;text-align:center">Accuracy</th>
+                                    <th style="font-size:15px;text-align:center">Average</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -136,9 +136,6 @@
                                     </td>
                                     <td>
                                         <div>03/26/2021</div>
-                                    </td>
-                                    <td>
-                                        <div>70.8</div>
                                     </td>
                                     <td>
                                         <div>63.4</div>
@@ -161,6 +158,9 @@
                                     <td>
                                         <div>55.2</div>
                                     </td>
+                                    <td>
+                                        <div>70.8</div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -177,9 +177,6 @@
                                     </td>
                                     <td>
                                         <div>03/26/2021</div>
-                                    </td>
-                                    <td>
-                                        <div>70.5</div>
                                     </td>
                                     <td>
                                         <div>66.1</div>
@@ -202,6 +199,9 @@
                                     <td>
                                         <div>60.2</div>
                                     </td>
+                                    <td>
+                                        <div>70.5</div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -218,9 +218,6 @@
                                     </td>
                                     <td>
                                         <div>03/26/2021</div>
-                                    </td>
-                                    <td>
-                                        <div>69.6</div>
                                     </td>
                                     <td>
                                         <div>64.3</div>
@@ -243,10 +240,13 @@
                                     <td>
                                         <div>45.6</div>
                                     </td>
+                                    <td>
+                                        <div>69.6</div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div>4</div>
+                                        <div>-</div>
                                     </td>
                                     <td>
                                         <div>VulBERTa-MLP</div>
@@ -279,15 +279,15 @@
                                         <div>-</div>
                                     </td>
                                     <td>
-                                        <div>-</div>
+                                        <div>62.3</div>
                                     </td>
                                     <td>
-                                        <div>62.3</div>
+                                        <div>-</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div>5</div>
+                                        <div>-</div>
                                     </td>
                                     <td>
                                         <div>VulBERTa-CNN</div>
@@ -320,19 +320,47 @@
                                         <div>-</div>
                                     </td>
                                     <td>
-                                        <div>-</div>
-                                    </td>
-                                    <td>
                                         <div>60.7</div>
                                     </td>
+                                    <td>
+                                        <div>-</div>
+                                    </td>
                                 </tr>
-                                <!-- Begin GNN Comment-------
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+    </section>
+        <section id="code-trace-leaderboard" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+
+                    <h2>Code + Trace Leaderboard</h2>
+
+                    <div class="table-responsive">
+                        <table class="table" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">Rank</th>
+                                    <th style="text-align:center">Model</th>
+                                    <th style="text-align:center">Team</th>
+                                    <th style="text-align:center">Organization</th>
+                                    <th style="text-align:center">Date</th>
+                                    <th style="font-size:15px;text-align:center">F1</th>
+                                    <th style="font-size:15px;text-align:center">AUC</th>
+                                    <th style="font-size:15px;text-align:center">Average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <tr>
                                     <td>
-                                        <div>4</div>
+                                        <div>1</div>
                                     </td>
                                     <td>
-                                        <div>GNN</div>
+                                        <div>AugSA-V</div>
                                     </td>
                                     <td>
                                         <div>AI4VA</div>
@@ -344,31 +372,409 @@
                                         <div>03/26/2021</div>
                                     </td>
                                     <td>
-                                        <div></div>
+                                        <div>64.3</div>
                                     </td>
                                     <td>
-                                        <div></div>
+                                        <div>85.0</div>
                                     </td>
                                     <td>
-                                        <div></div>
-                                    </td>
-                                    <td>
-                                        <div></div>
-                                    </td>
-                                    <td>
-                                        <div></div>
-                                    </td>
-                                    <td>
-                                        <div></div>
-                                    </td>
-                                    <td>
-                                        <div></div>
-                                    </td>
-                                    <td>
-                                        <div>59.3</div>
+                                        <div>74.6</div>
                                     </td>
                                 </tr>
-                                End GNN Comment-->
+                                <tr>
+                                    <td>
+                                        <div>2</div>
+                                    </td>
+                                    <td>
+                                        <div>C-BERT</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>66.1</div>
+                                    </td>
+                                    <td>
+                                        <div>81.7</div>
+                                    </td>
+                                    <td>
+                                        <div>73.9</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>3</div>
+                                    </td>
+                                    <td>
+                                        <div>AugSA-S</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>63.4</div>
+                                    </td>
+                                    <td>
+                                        <div>83.6</div>
+                                    </td>
+                                    <td>
+                                        <div>73.5</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+    </section>
+    <section id="trace-leaderboard" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+
+                    <h2>Trace Leaderboard</h2>
+
+                    <div class="table-responsive">
+                        <table class="table" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">Rank</th>
+                                    <th style="text-align:center">Model</th>
+                                    <th style="text-align:center">Team</th>
+                                    <th style="text-align:center">Organization</th>
+                                    <th style="text-align:center">Date</th>
+                                    <th style="font-size:15px;text-align:center">F1</th>
+                                    <th style="font-size:15px;text-align:center">AUC</th>
+                                    <th style="font-size:15px;text-align:center">Average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>1</div>
+                                    </td>
+                                    <td>
+                                        <div>C-BERT</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>62.4</div>
+                                    </td>
+                                    <td>
+                                        <div>80.4</div>
+                                    </td>
+                                    <td>
+                                        <div>71.4</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>2</div>
+                                    </td>
+                                    <td>
+                                        <div>AugSA-S</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>61.1</div>
+                                    </td>
+                                    <td>
+                                        <div>81.2</div>
+                                    </td>
+                                    <td>
+                                        <div>71.1</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>3</div>
+                                    </td>
+                                    <td>
+                                        <div>AugSA-V</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>61.3</div>
+                                    </td>
+                                    <td>
+                                        <div>80.2</div>
+                                    </td>
+                                    <td>
+                                        <div>70.7</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+    </section>
+    <section id="code-leaderboard" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+
+                    <h2>Code Leaderboard</h2>
+
+                    <div class="table-responsive">
+                        <table class="table" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">Rank</th>
+                                    <th style="text-align:center">Model</th>
+                                    <th style="text-align:center">Team</th>
+                                    <th style="text-align:center">Organization</th>
+                                    <th style="text-align:center">Date</th>
+                                    <th style="font-size:15px;text-align:center">F1</th>
+                                    <th style="font-size:15px;text-align:center">AUC</th>
+                                    <th style="font-size:15px;text-align:center">Average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>1</div>
+                                    </td>
+                                    <td>
+                                        <div>AugSA-S</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>65.8</div>
+                                    </td>
+                                    <td>
+                                        <div>85.2</div>
+                                    </td>
+                                    <td>
+                                        <div>75.5</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>2</div>
+                                    </td>
+                                    <td>
+                                        <div>AugSA-V</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>65.2</div>
+                                    </td>
+                                    <td>
+                                        <div>85.7</div>
+                                    </td>
+                                    <td>
+                                        <div>75.4</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>3</div>
+                                    </td>
+                                    <td>
+                                        <div>C-BERT</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>62.4</div>
+                                    </td>
+                                    <td>
+                                        <div>80.2</div>
+                                    </td>
+                                    <td>
+                                        <div>71.3</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+    </section>
+    
+    <section id="function-leaderboard" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+
+                    <h2>Function Leaderboard</h2>
+
+                    <div class="table-responsive">
+                        <table class="table" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">Rank</th>
+                                    <th style="text-align:center">Model</th>
+                                    <th style="text-align:center">Team</th>
+                                    <th style="text-align:center">Organization</th>
+                                    <th style="text-align:center">Date</th>
+                                    <th style="font-size:15px;text-align:center">Accuracy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>1</div>
+                                    </td>
+                                    <td>
+                                        <div>VulBERTa-MLP</div>
+                                    </td>
+                                    <td>
+                                        <div>ACS Group</div>
+                                    </td>
+                                    <td>
+                                        <div>-</div>
+                                    </td>
+                                    <td>
+                                        <div>11/10/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>62.3</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>2</div>
+                                    </td>
+                                    <td>
+                                        <div>VulBERTa-CNN</div>
+                                    </td>
+                                    <td>
+                                        <div>ACS Group</div>
+                                    </td>
+                                    <td>
+                                        <div>-</div>
+                                    </td>
+                                    <td>
+                                        <div>11/10/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>60.7</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>3</div>
+                                    </td>
+                                    <td>
+                                        <div>C-BERT</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>60.2</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>4</div>
+                                    </td>
+                                    <td>
+                                        <div>AugSA-S</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>55.2</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                    <td>
+                                        <div>AugSA-V</div>
+                                    </td>
+                                    <td>
+                                        <div>AI4VA</div>
+                                    </td>
+                                    <td>
+                                        <div>IBM Research</div>
+                                    </td>
+                                    <td>
+                                        <div>03/26/2021</div>
+                                    </td>
+                                    <td>
+                                        <div>45.6</div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
