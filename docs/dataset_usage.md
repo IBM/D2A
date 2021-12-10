@@ -10,7 +10,8 @@ For each project, there are 3 `pickle.gz` files like `nginx_after_fix_extractor_
 Each `pickle.gz` file contains compressed samples in JSON (e.g. [auto_labeler_0.json](samples/auto_labeler_0.json)). 
 
 Function [print_sample()](../scripts/dataset_generator/misc/read_pickled_samples.py#L24-L52) in [read_pickled_samples.py](../scripts/dataset_generator/misc/read_pickled_samples.py) reads the JSON objects from pickle file and [decode the compressed static analysis output](../scripts/dataset_generator/misc/read_pickled_samples.py#L49).
-Note that by default, [print_sample()](../scripts/dataset_generator/misc/read_pickled_samples.py#L24-L52) only reads the first issue in each file, so it will display `1 issues loaded` even though there are more issues in the file.
+
+Note that by default, [print_sample()](../scripts/dataset_generator/misc/read_pickled_samples.py#L24-L52) only reads the first issue in each file, so it will display `1 issues loaded` even though there may be more issues in the file. You can comment out [lines 36-37](../scripts/dataset_generator/misc/read_pickled_samples.py#L36-L37) (`if cnt == 1: break`) to load all issues in the file.
 
 
 
